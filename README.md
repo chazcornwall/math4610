@@ -3,4 +3,4 @@ This repository contains tasksheets and homework for course [MATH4610 Fundamenta
 
 The due dates for assignments can be found [here](https://jvkoebbe.github.io/math4610/tasksheets/toc/md/tasksheet_toc.md).
 
-The [Table of Contents](http://chazcornwall.github.io/math4610/hw_toc.md) for homework and tasksheets can be found by clicking the link.
+The [Table of Contents](http://github.com/chazcornwall/blob/master/math4610/hw_toc.md) for homework and tasksheets can be found by clicking the link.
