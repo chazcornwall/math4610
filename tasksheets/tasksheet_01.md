@@ -1,9 +1,25 @@
 # Solutions for Tasksheet 1
 [See here](https://github.com/jvkoebbe/math4610/blob/master/tasksheets/tasksheet_01/pdf/tasksheet_01.pdf) for problem set.
 
+**Task 1**
+
+Completed.
+
+**Task 2**
+
+Completed.
+
+**Task 3**
+
+Completed.
+
 **Task 4**
 
 I will be using Cygwin to emulate a Linux terminal environment.
+
+**Task 5**
+
+Completed.
 
 **Task 6**
 
