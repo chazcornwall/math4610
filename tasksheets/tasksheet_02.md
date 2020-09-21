@@ -2,7 +2,15 @@
 [See here](https://github.com/jvkoebbe/math4610/blob/master/tasksheets/tasksheet_02/pdf/tasksheet_02.pdf) for problem set.
 
 **Task 1**
+See here for source code.
 
+**Task 2**
+Complete.
+
+**Task 3**
+Complete.
+
+**Task 4**
 <img src="https://render.githubusercontent.com/render/math?math=f^{'}(a) \approx \frac{f(a%2Bh) - f(a-h)}{2h}">
 
 <img src="https://render.githubusercontent.com/render/math?math=f(a%2Bh) = \sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(a%2Bh-a)^{n} \approx f(a) %2B f^{'}(a)h %2B \frac{1}{2}f^{''}(a)h^{2}  %2B \frac{1}{6}f^{'''}(a)h^{3} %2B ...">
@@ -16,3 +24,5 @@
 <img src="https://render.githubusercontent.com/render/math?math=e = f^{'}(a) -  \frac{f(a%2Bh) - f(a-h)}{2h}">
 
 <img src="https://render.githubusercontent.com/render/math?math=e = \frac{1}{6}f^{'''}(\xi)h^{2} \leq Ch^{2}">
+
+Since the least power will have the largest effect on the solution and error (i.e. when h is less than one, h squared is much greater than h cubed), this approximation is second order because 2 is the smallest power of h in the approximation.
