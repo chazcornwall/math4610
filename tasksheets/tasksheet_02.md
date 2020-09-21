@@ -3,4 +3,4 @@
 
 **Task 1**
 
-<img src="https://render.githubusercontent.com/render/math?math=f^{'}(a) = \frac{f(a+h) - f(a-h)}{2h}">
+<img src="https://render.githubusercontent.com/render/math?math=f^{'}(a) = \frac{f(a%2Bh) - f(a-h)}{2h}">
