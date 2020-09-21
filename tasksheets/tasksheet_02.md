@@ -4,3 +4,5 @@
 **Task 1**
 
 <img src="https://render.githubusercontent.com/render/math?math=f^{'}(a) = \frac{f(a%2Bh) - f(a-h)}{2h}">
+
+<img src="https://render.githubusercontent.com/render/math?math=f(a%2Bh) = f(a) %2B f^{'}(a)h %2B \frac{1}{2}f^{''}h^{2}  %2B \frac{1}{6}f^{'''}h^{3}">
