@@ -5,5 +5,5 @@ using namespace Derivative;
 
 void main()
 {
-    derivativeApprox();
+    derivativeApprox sine = derivativeApprox();
 }
