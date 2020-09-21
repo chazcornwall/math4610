@@ -15,4 +15,4 @@
 
 <img src="https://render.githubusercontent.com/render/math?math=e = f^{'}(a) -  \frac{f(a%2Bh) - f(a-h)}{2h}">
 
-<img src="https://render.githubusercontent.com/render/math?math=e = \frac{1}{6}f^{'''}(\xi)h^{2} <=Ch^{2}">
+<img src="https://render.githubusercontent.com/render/math?math=e = \frac{1}{6}f^{'''}(\xi)h^{2} \leq Ch^{2}">
