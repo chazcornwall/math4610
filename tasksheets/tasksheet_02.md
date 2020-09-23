@@ -3,7 +3,7 @@
 
 **Task 1**
 
-[See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/derivativeapprox.cpp) for source code.
+[See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/helloworld.cpp) for source code.
 
 **Task 2**
 
@@ -39,4 +39,4 @@ Complete.
 
 <img src="https://render.githubusercontent.com/render/math?math=e = \frac{1}{12}f^{(4)}(\xi)h^{2} \leq Ch^{2}">
 
-Since the least power will have the largest effect on the solution and error (i.e. when h is less than one, h squared is much greater than h cubed), this approximation is second order because 2 is the smallest power of h in the approximation.
+Since the least power will have the largest effect on the solution and error (i.e. when h is less than one, h squared is much greater than h cubed), this approximation is second order because 2 is the smallest power of h in the approximation. [See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/derivativeapprox.cpp) for the code that executes this 2nd derivative approximation. 
