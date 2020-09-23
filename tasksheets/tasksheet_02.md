@@ -3,7 +3,7 @@
 
 **Task 1**
 
-[See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/derivativeApprox.cpp) for source code.
+[See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/derivativeapprox.cpp) for source code.
 
 **Task 2**
 
