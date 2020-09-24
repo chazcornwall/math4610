@@ -44,9 +44,17 @@ Since the least power will have the largest effect on the solution and error (i.
 **Task 6**
 
 [This pdf](https://www.weatherclasses.com/uploads/1/3/1/3/131359169/lectfinitedifference.pdf) describes the derivations for 4th and 6th order finite derivative approximations. The approach used in this document is to use the Taylor Series Expansion of a centered difference approximation to create several different approximations of varying "delta x". For example, as shown in Task 4, the centered difference approximation can be expressed as:
+
 <img src="https://render.githubusercontent.com/render/math?math=\frac{f(a%2Bh) - f(a-h)}{2h} = f^{'}(a) %2B \frac{1}{3!}f^{'''}(a)h^{2} %2B \frac{1}{5!}f^{(5)}(a)h^{4} ...">
+
 <img src="https://render.githubusercontent.com/render/math?math=\frac{f(a%2B2h) - f(a-2h)}{4h} = f^{'}(a) %2B \frac{1}{3!}f^{'''}(a)(2h)^{2} %2B \frac{1}{5!}f^{(5)}(a)(2h)^{4}...">
+
 By multiplying the second order centered difference approximation by 4 and substracting it from the 4h centered approximation
-<img src="https://render.githubusercontent.com/render/math?math=\frac{f(a%2B2h) - f(a-2h)}{4h} = f^{'}(a) %2B \frac{1}{3!}f^{'''}(a)(2h)^{2} %2B \frac{1}{5!}f^{(5)}(a)(2h)^{4}...">
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{8[f(a%2Bh) - f(a-h)] - [f(a%2B2h) - f(a-2h)]}{4h} = 3f^{'}(a) - \frac{1}{5!}f^{(5)}(a)12(h)^{4}...">
+
+Then by multiplying everything by 3, we can see the 4th order difference approximation:
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{8[f(a%2Bh) - f(a-h)] - [f(a%2B2h) - f(a-2h)]}{12h} = f^{'}(a) - \frac{1}{5!}f^{(5)}(a)4(h)^{4}...">
 
 
