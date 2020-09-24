@@ -15,6 +15,8 @@ Complete.
 
 **Task 4**
 
+The following equations show how the central discrete derivative is a second order approximation by illustrating the magnitude of the error.
+
 <img src="https://render.githubusercontent.com/render/math?math=f^{'}(a) \approx \frac{f(a%2Bh) - f(a-h)}{2h}">
 
 <img src="https://render.githubusercontent.com/render/math?math=f(a%2Bh) = \sum_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(a%2Bh-a)^{n} \approx f(a) %2B f^{'}(a)h %2B \frac{1}{2}f^{''}(a)h^{2}  %2B \frac{1}{6}f^{'''}(a)h^{3} %2B ...">
@@ -30,6 +32,8 @@ Complete.
 <img src="https://render.githubusercontent.com/render/math?math=|e| = \frac{1}{6}f^{'''}(\xi)h^{2} \leq Ch^{2}">
 
 **Task 5**
+
+The following equations show how the central discrete 2nd derivative approximation's error magnitude.
 
 <img src="https://render.githubusercontent.com/render/math?math=f^{''}(a) \approx \frac{f(a%2Bh) - 2f(a) %2B f(a-h)}{h^{2}}">
 
