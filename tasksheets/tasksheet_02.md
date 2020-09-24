@@ -41,6 +41,29 @@ Complete.
 
 Since the least power will have the largest effect on the solution and error (i.e. when h is less than one, h squared is much greater than h cubed), this approximation is second order because 2 is the smallest power of h in the approximation. [See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/derivativeapprox.cpp) for the code that executes this 2nd derivative approximation. 
 
+| h        | Approximation           | Actual  | Error |
+| ------------- |:-------------:| -----:|------------|
+| 1    | 0.3826 | 0.4161| 0.03354 |
+| 0.5     | 0.4075      |   0.4161 | 0.008598 |
+| 0.1 | 0.4158      |    0.4161| 0.0003467 |
+| 0.01 | 0.4161      |    0.4161| 3.468e-6 |
+| 0.001 | 0.4161      |    0.4161| 3.464e-8 |
+| 0.0001 | 0.4161      |    0.4161| 1.954e-8 |
+| 1e-5 | 0.4161      |    0.4161| 2.802e-7 |
+| 1e-6 | 0.416      |    0.4161| 0.0001463 |
+| 1e-7 | 0.4385     |    0.4161| 0.02239 |
+| 1e-8 | 1.11     |    0.4161| 0.6941 |
+| 1e-9 | 55.51     |    0.4161| 55.1 |
+| 1e-10 | 5551     |    0.4161| 5551 |
+| 1e-11 | 5.551e+5     |    0.4161| 5551e+5 |
+| 1e-12 | 0    |    0.4161| 0.4161 |
+| 1e-13 | 5.551e+9   |    0.4161| 5.551e+9 |
+| 1e-14 | -1.665e+12  |    0.4161| 1.665e+12 |
+| 1e-15 | 2.776e+14 |    0.4161| 2.776e+14 |
+| 1e-16 | 0 |    0.4161| 0.4161 |
+| 1e-17 | 0 |    0.4161| 0.4161 |
+
+
 **Task 6**
 
 [This pdf](https://www.weatherclasses.com/uploads/1/3/1/3/131359169/lectfinitedifference.pdf) describes the derivations for 4th and 6th order finite derivative approximations. The approach used in this document is to use the Taylor Series Expansion of a centered difference approximation to create several different approximations of varying "delta x". For example, as shown in Task 4, the centered difference approximation can be expressed as:
