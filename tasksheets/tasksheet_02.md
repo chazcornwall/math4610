@@ -57,4 +57,6 @@ Then by multiplying everything by 3, we can see the 4th order difference approxi
 
 <img src="https://render.githubusercontent.com/render/math?math=\frac{8[f(a%2Bh) - f(a-h)] - [f(a%2B2h) - f(a-2h)]}{12h} = f^{'}(a) - \frac{1}{5!}f^{(5)}(a)4(h)^{4} - ...">
 
+Similar ideas are also expressed in [this paper](https://www.dam.brown.edu/people/alcyew/handouts/numdiff.pdf) also.
+
 
