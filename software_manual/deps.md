@@ -39,8 +39,8 @@ int main(void)
 Output from the lines above:
 
 <pre><code> 
-Machine Precision: 5.96046e-08
-Approximate Power: 2^25
+Machine Precision: 1.11022e-16
+Approximate Power: 2^54
 </pre></code>
 
 **Implementation/Code:** The following is the code for deps()
