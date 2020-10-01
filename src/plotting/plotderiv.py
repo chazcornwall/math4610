@@ -63,6 +63,6 @@ while it<44:
 plt.title('Error in the Difference Quotient of the Derivative')
 plt.xlabel('Increment Values: h')
 plt.ylabel('Error in the Approximation')
-plt.plot(x, y, label='Log-Log Plot of Error for f''(2.0) when f(x) = cos(x)')
+plt.plot(x, y, label='Log-Log Plot of Error for f^(2)(2.0) when f(x) = cos(x)')
 plt.legend()
 plt.show()
