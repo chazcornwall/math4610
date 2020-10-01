@@ -18,7 +18,7 @@ void MachineEpsilon::eps()
         power++;
     }
 
-    std::cout << "Machine Presision: " << epsilon << std::endl;
+    std::cout << "Machine Precision: " << epsilon << std::endl;
     std::cout << "Approxmate Power: 2^" << power << std::endl;
 }
 
