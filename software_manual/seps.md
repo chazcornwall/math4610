@@ -28,6 +28,8 @@ usually will need to be run one time for each computer.
 <pre><code> 
 #inclde "math4610lib.h" 
 
+using namespace MachineEpsilon;
+
 int main(void)
 {
     seps();
