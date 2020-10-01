@@ -34,3 +34,8 @@ Here is a table showing the first seventeen results of the printed output:
 | 0.000031 | 0.000000 | -2.229332 |
 | 0.000015 | 0.000000 | -2.052058 |
 | 0.000008 | 0.000001 | -3.102423 |
+
+<hr>
+
+**Task 3**
+
