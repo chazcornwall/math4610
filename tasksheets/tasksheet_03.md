@@ -12,7 +12,7 @@ The resulting plot can be seen below:
 
 ![](https://github.com/chazcornwall/math4610/blob/master/src/plotting/Figure.png)
 
-Here is a table showing the first seventeen results of the printed output:
+Here is a table showing the first 18 results of the printed output. The approximation begins to fail when h = 0.000122. The slope of the error becomes inverted at this point.
 
 | h        | Error | Slope of log-log plot|
 | ------------- |:-------------:| ------|
