@@ -1,1 +1,1 @@
-**Software Manual Table of Contents**
+*Software Manual Table of Contents*
