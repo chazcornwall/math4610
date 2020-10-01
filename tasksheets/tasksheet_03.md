@@ -45,6 +45,15 @@ The source code for the function that prints the single machine precision can be
 <hr>
 
 **Task 4**
+The [software manual](https://github.com/chazcornwall/math4610/blob/master/software_manual/README.md) has been created.
+
+<hr>
+
+**Task 5**
+The archive can be found [here](https://github.com/chazcornwall/math4610/blob/master/src). The figure in Task 3 shows the archive being used to compile test.cpp.
+
+**Task 6**
+Shared libraries can greatly reduce the amount of code needed on a computer by creating one copy of commonly used functions. Higher level applications that need to use these fucntions can then link to the shared library instead of declaring and defining the function again. One disadvantage is the extra time needed to retrieve functions that are located in a shared library. [This site](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/performance/when_dyn_linking_static_linking.html) provides more details. When working with shared libraries, there is the option of static or dynamic linking. Static linkage is linking the library to an object file during compilation (which is done here in this tasksheet). Dynamic linking is linking the library to an executable during runtime. [See here] (https://en.wikipedia.org/wiki/Static_library).
 
 
 
