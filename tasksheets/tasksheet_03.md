@@ -1,6 +1,8 @@
 # Solutions for Tasksheet 3 
 [See here](https://github.com/jvkoebbe/math4610/blob/master/tasksheets/tasksheet_03/md/tasksheet_03.md) for problem set.
 
+<hr>
+
 **Task 1 and Task 2**
 From Tasksheet 2, is was shown that the error of the central difference approximation could be expressed as:
 <img src="https://render.githubusercontent.com/render/math?math=error \leq Ch^{2}">
@@ -51,6 +53,8 @@ The [software manual](https://github.com/chazcornwall/math4610/blob/master/softw
 
 **Task 5**
 The archive can be found [here](https://github.com/chazcornwall/math4610/blob/master/src). The figure in Task 3 shows the archive being used to compile test.cpp.
+
+<hr>
 
 **Task 6**
 Shared libraries can greatly reduce the amount of code needed on a computer by creating one copy of commonly used functions. Higher level applications that need to use these fucntions can then link to the shared library instead of declaring and defining the function again. One disadvantage is the extra time needed to retrieve functions that are located in a shared library. [This site](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_71/performance/when_dyn_linking_static_linking.html) provides more details. When working with shared libraries, there is the option of static or dynamic linking. Static linkage is linking the library to an object file during compilation (which is done here in this tasksheet). Dynamic linking is linking the library to an executable during runtime. [See here] (https://en.wikipedia.org/wiki/Static_library).
