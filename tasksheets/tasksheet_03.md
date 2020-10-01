@@ -15,7 +15,7 @@ The resulting plot can be seen below:
 Here is a table showing the first seventeen results of the printed output:
 
 | h        | Error | Slope of log-log plot|
-| ------------- |:-------------:| -----:||
+| ------------- |:-------------:| ------|
 | 1    |  0.03354 | N/A |
 | 0.5     | 0.008598 | 1.963988 |
 | 0.25 | 0.002163 | 1.990987 |
