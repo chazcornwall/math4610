@@ -39,6 +39,6 @@ Here is a table showing the first seventeen results of the printed output:
 
 **Task 3**
 The source code for the function that prints the single machine precision can be found in [seps.cpp](https://github.com/chazcornwall/math4610/blob/master/src/seps.cpp). The source code for the function that prints the double machine precision can be found in [deps.cpp](https://github.com/chazcornwall/math4610/blob/master/src/deps.cpp). The output of these two functions can be seen in the picture below:
-![](https://github.com/chazcornwall/math4610/blob/master/images/task3_libexample.jpg)
+![](https://github.com/chazcornwall/math4610/blob/master/images/task3_libexample.JPG)
 
 
