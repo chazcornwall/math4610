@@ -23,7 +23,7 @@ usually will need to be run one time for each computer.
 **Output:** None
 
 **Usage/Example:**
-This function cannot be used from the math4610lib.a archive. It can only be compiled directly.
+This function cannot be used from the math4610lib.a archive. It can only be compiled directly. Please use typical C++ template syntax (not shown below due to markdown syntax).
 
 <pre><code> 
 #inclde "math4610lib.h" 
