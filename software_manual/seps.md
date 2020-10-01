@@ -43,7 +43,7 @@ Machine Precision: 5.96046e-08
 Approximate Power: 2^25
 </pre></code>
 
-**Implementation/Code:** The following is the code for smaceps()
+**Implementation/Code:** The following is the code for seps()
 
 <pre><code>
  void MachineEpsilon::seps()
