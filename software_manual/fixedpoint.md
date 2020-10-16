@@ -1,4 +1,4 @@
-# double fixedpoint()
+# double fixedpoint(const Function & function, double x0, double error, double stop)
 
 **Function Name:**           fixedpoint
 
