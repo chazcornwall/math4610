@@ -1,4 +1,4 @@
-# void seps()
+# double fixedpoint()
 
 **Function Name:**           fixedpoint
 
@@ -21,7 +21,7 @@ better
 
 **Input:** A function, an initial x0, and the target error
 
-**Output:** None
+**Output:** One of the roots of the function
 
 **Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the fixed-point iteration. The function should be place as the return
  statement for the getOutput() method.
