@@ -1,6 +1,6 @@
-# double fixedpoint()
+# double bisection(const Function & function, double reduceconst, double leftbound, double rightbound)
 
-**Function Name:**           fixedpoint
+**Function Name:**           bisection
 
 **Namespace:**               Rootfinding
 
@@ -10,20 +10,20 @@
 
 For example,
 
-    g++ fixedpoint.cpp abserror.cpp
+    g++ bisection.cpp abserror.cpp
 
 will produce an executable **./a.exe** than can be executed. If you want a different name, the following will work a bit
 better
 
-    g++ fixedpoint.cpp abserror.cpp -o fixedpoint.exe
+    g++ bisection.cpp abserror.cpp -o fixedpoint.exe
 
-**Description/Purpose:** This routine will compute the root of functions using the fixed-point iteration method. 
+**Description/Purpose:** This routine will compute the root of functions using the bisection method. The root must be contained within the initial bracketed area.
 
-**Input:** A function, an initial x0, the target error, and max allowable iterations
+**Input:** A function, tolerance constant, left bound, right bound
 
 **Output:** One of the roots of the function
 
-**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the fixed-point iteration. The function should be place as the return
+**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the bisection iteration. The function should be placed as the return
  statement for the getOutput() method.
 
 <pre><code> 
@@ -39,36 +39,41 @@ class NewFunction : public Rootfinding::Function
 int main(void)
 {
     NewFunction function = NewFunction();
-    double x0 = 10.0;
-    double error = 0.0001;
-    double stop = 10000
-    double root = Rootfinding::fixedpoint(function, x0, error, stop);
+    double tol = 1000;
+    double leftbound = 0;
+    double rightbound = 10;
+    double root = Rootfinding::bisection(function, tol, leftbound, rightbound);
 }
 </pre></code>
 
-**Implementation/Code:** The following is the code for fixedpoint()
+**Implementation/Code:** The following is the code for bisection()
 
 <pre><code>
- double Rootfinding::fixedPoint(const Rootfinding::Function & function, double x0, double error, int stop)
+ double Rootfinding::bisection(const Rootfinding::Function & function, double reduceconst, double leftbound, double rightbound)
 {
-    double errorcurrent = 1000000;
-    double xk = x0;
-    double xk_1;
-    int it = 0;
-    while(errorcurrent > error && it < stop && errorcurrent <= 1000000)
+    int setiterations = 0;
+
+    while(reduceconst > 1) 
     {
-        double fxk = function.getOutput(xk);
-        xk_1 = xk - fxk; // Perform fixed point iteration
-        errorcurrent = Error::abserror(fxk, 0.0);
-        xk = xk_1;
+        reduceconst /= 2;
+        setiterations++; // Counts how many iterations to reduce by a given constant
     }
 
-    if(it == stop || errorcurrent >= 1000000)
+    double middle;
+    for(int it = 0; it < setiterations ; it++)
     {
-        std::cout << "Fixed point iteration does not converge!" << std::endl;
+        middle = (leftbound + rightbound) / 2.0;
+        if(function.getOutput(leftbound) * function.getOutput(middle) < 0) // If boundary contains a root
+        {
+            rightbound = middle;
+        }
+        else
+        {
+            leftbound = middle;
+        }
     }
 
-    return xk_1;
+    return middle;
 }
 </pre></code>
 
