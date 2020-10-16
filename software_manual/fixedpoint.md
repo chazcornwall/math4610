@@ -19,7 +19,7 @@ better
 
 **Description/Purpose:** This routine will compute the root of functions using the fixed-point iteration method. 
 
-**Input:** A function, an initial x0, and the target error
+**Input:** A function, an initial x0, the target error, and max allowable iterations
 
 **Output:** One of the roots of the function
 
@@ -41,7 +41,8 @@ int main(void)
     NewFunction function = NewFunction();
     double x0 = 10.0;
     double error = 0.0001;
-    double root = Rootfinding::fixedpoint(function, x0, error);
+    double stop = 10000
+    double root = Rootfinding::fixedpoint(function, x0, error, stop);
 }
 </pre></code>
 
