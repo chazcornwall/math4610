@@ -15,7 +15,7 @@ For example,
 will produce an executable **./a.exe** than can be executed. If you want a different name, the following will work a bit
 better
 
-    g++ bisection.cpp abserror.cpp -o fixedpoint.exe
+    g++ bisection.cpp abserror.cpp -o bisection.exe
 
 **Description/Purpose:** This routine will compute the root of functions using the bisection method. The root must be contained within the initial bracketed area.
 
