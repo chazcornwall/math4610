@@ -25,7 +25,7 @@ Below is the image generated from the above python code.
 
 **Task 3**
 
-The code for the fixed-point iteration has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/fixedpoint.cpp) is a link to the source code, and [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md) is a link to the entry in my software manual.
+The code for the fixed-point iteration root-finding method has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/fixedpoint.cpp) is a link to the source code, and [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md) is a link to the entry in my software manual.
 
 <hr>
 
@@ -37,7 +37,7 @@ Setting the absolute error to 0.01 and epsilon to 0.15, the fixed point iteratio
 
 **Task 5**
 
-This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/bisection.cpp) is a link to the source code, and [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/bisection.md) is a link to the entry in my software manual.
+The code for the bisection root-finding method has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/bisection.cpp) is a link to the source code, and [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/bisection.md) is a link to the entry in my software manual.
 
 <hr>
 
