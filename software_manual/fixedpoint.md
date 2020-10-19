@@ -43,7 +43,7 @@ int main(void)
     double error = 0.0001;
     int stop = 1000;
     double epsilon = 1.0;
-    double root = Rootfinding::fixedpoint(function, x0, error, stop);
+    double root = Rootfinding::fixedpoint(function, x0, error, epsilon, stop);
 }
 </pre></code>
 
