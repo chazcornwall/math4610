@@ -9,7 +9,13 @@ This has been completed. The absolute error function can be found [here](https:/
 
 **Task 2**
 
-This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code. Below is an image generated.
+This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code.
+<pre><code>
+ import plot as pl
+
+ pl.graph(['x**2','2*x'], 0, 30, 1)
+</pre></code>
+Below is the image generated from the above python code.
 
 ![](https://github.com/chazcornwall/math4610/blob/master/src/plotting/Figure_1.png)
 
