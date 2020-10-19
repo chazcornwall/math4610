@@ -9,7 +9,7 @@ This has been completed. The absolute error function can be found [here](https:/
 
 **Task 2**
 
-This has been completed. Here is a link for the python code. Below is an image generated.
+This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code. Below is an image generated.
 
 **Task 3**
 
@@ -17,6 +17,7 @@ The code for the fixed-point iteration has been completed. [Here](https://github
 
 **Task 4**
 
+Setting the absolute error to 0.01 and epsilon to 0.15, the fixed point iteration method converges. When epsilon is 0.15, the returned root is 0.806. When epsilon is 0.1505, the returned root is 0.002.
 
 **Task 5**
 
