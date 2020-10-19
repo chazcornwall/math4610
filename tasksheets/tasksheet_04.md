@@ -11,6 +11,8 @@ This has been completed. The absolute error function can be found [here](https:/
 
 This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code. Below is an image generated.
 
+![](https://github.com/chazcornwall/math4610/blob/master/src/plotting/Figure_1.png)
+
 **Task 3**
 
 The code for the fixed-point iteration has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/fixedpoint.cpp) is a link to the source code, and [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md) is a link to the entry in my software manual.
