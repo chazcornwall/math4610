@@ -1,4 +1,4 @@
-# double fixedpoint(const Function & function, double x0, double error, double stop)
+# double fixedpoint(const Function & function, double x0, double error, double epsilon, int stop)
 
 **Function Name:**           fixedpoint
 
@@ -41,7 +41,8 @@ int main(void)
     NewFunction function = NewFunction();
     double x0 = 10.0;
     double error = 0.0001;
-    double stop = 10000
+    int stop = 1000;
+    double epsilon = 1.0;
     double root = Rootfinding::fixedpoint(function, x0, error, stop);
 }
 </pre></code>
@@ -49,7 +50,7 @@ int main(void)
 **Implementation/Code:** The following is the code for fixedpoint()
 
 <pre><code>
- double Rootfinding::fixedPoint(const Rootfinding::Function & function, double x0, double error, int stop)
+ double Rootfinding::fixedPoint(const Rootfinding::Function & function, double x0, double error, double epsilon, int stop)
 {
     double errorcurrent = 1000000;
     double xk = x0;
@@ -58,16 +59,15 @@ int main(void)
     while(errorcurrent > error && it < stop && errorcurrent <= 1000000)
     {
         double fxk = function.getOutput(xk);
-        xk_1 = xk - fxk; // Perform fixed point iteration
+        xk_1 = xk - epsilon * fxk; // Perform fixed point iteration
         errorcurrent = Error::abserror(fxk, 0.0);
         xk = xk_1;
+        
+        if(it == stop || errorcurrent >= 1000000)
+        {
+            std::cout << "Fixed point iteration does not converge!" << std::endl;
+        }
     }
-
-    if(it == stop || errorcurrent >= 1000000)
-    {
-        std::cout << "Fixed point iteration does not converge!" << std::endl;
-    }
-
     return xk_1;
 }
 </pre></code>
