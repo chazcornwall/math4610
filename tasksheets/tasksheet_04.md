@@ -36,7 +36,8 @@ The fixed-point iteration method converges such that
 <img src="https://render.githubusercontent.com/render/math?math=g(x) = x - {\varepsilon}f(x)">.
 
 In this problem, 
-<img src="https://render.githubusercontent.com/render/math?math=g'(x) = 1 - {\varepsilon}e^{3x^2} - {\varepsilon}6x^2e{3x^2} - 7{\varepsilon} ">
+<img src="https://render.githubusercontent.com/render/math?math=g'(x) = 1 - {\varepsilon}e^{3x^2} - {\varepsilon}6x^2e^{3x^2} - 7{\varepsilon} ">.
+
 Setting the absolute error to 0.01 and epsilon to 0.15, the fixed point iteration method converges. When epsilon is 0.15, the returned root is 0.806. When epsilon is 0.1505, the returned root is 0.002.
 
 <hr>
