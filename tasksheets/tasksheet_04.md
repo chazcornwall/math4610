@@ -33,6 +33,7 @@ The code for the fixed-point iteration root-finding method has been completed. [
 
 The fixed-point iteration method converges such that
 <img src="https://render.githubusercontent.com/render/math?math=|g'(x)| \leq 1"> where
+
 <img src="https://render.githubusercontent.com/render/math?math=g(x) = x - \{epsilon}f(x)">.
 
 In this problem, 
