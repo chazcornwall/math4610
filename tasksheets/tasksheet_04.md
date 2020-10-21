@@ -31,6 +31,12 @@ The code for the fixed-point iteration root-finding method has been completed. [
 
 **Task 4**
 
+The fixed-point iteration method converges such that
+<img src="https://render.githubusercontent.com/render/math?math=|g'(x)| \leq 1"> where
+<img src="https://render.githubusercontent.com/render/math?math=g(x) = x - \{epsilon}f(x)">.
+
+In this problem, 
+<img src="https://render.githubusercontent.com/render/math?math=g'(x) = 1 - \{epsilon}exp{3x^2} - \{epsilon}6x^2exp{3x^2} - 7\epsilon ">
 Setting the absolute error to 0.01 and epsilon to 0.15, the fixed point iteration method converges. When epsilon is 0.15, the returned root is 0.806. When epsilon is 0.1505, the returned root is 0.002.
 
 <hr>
