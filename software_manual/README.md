@@ -1,6 +1,6 @@
 # Software Manual Table of Contents
 
-This software manual is for the math4610.a library. The following functions are sorted according to their namespace.
+This software manual is for the math4610.a C++ library. The following functions are sorted according to their namespace.
 
 **MachineEpsilon**
 
@@ -17,3 +17,9 @@ This software manual is for the math4610.a library. The following functions are 
 
 * [double fixedpoint(const Function & function, double x0, double error, double epsilon, double stop)](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md)
 * [double bisection(const Function & function, double reduceconst, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/bisection.md)
+
+*Miscellaneous (other programming languages)*
+
+* [graph(formulas, start, stop, step)](https://github.com/chazcornwall/math4610/blob/master/software_manual/graph.md)
+
+
