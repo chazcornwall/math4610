@@ -1,80 +1,50 @@
-# double bisection(const Function & function, double reduceconst, double leftbound, double rightbound)
+# graph(formulas, start, stop, step)
 
-**Function Name:**           bisection
+**Function Name:**           graph
 
-**Namespace:**               Rootfinding
+**Namespace:**               N/A
 
 **Author:** Chaz Cornwall
 
-**Language:** c++. The code can be compiled using the GNU C++ compiler (g++).
+**Language:** Python. The code can run using python3 with matplotlib and numpy modules.
 
 For example,
 
-    g++ bisection.cpp
+    python3 testplot.py
 
-will produce an executable **./a.exe** than can be executed. If you want a different name, the following will work a bit
-better
+will produce a plot of the functions in plot.py
 
-    g++ bisection.cpp -o bisection.exe
+**Description/Purpose:** This method will plot a list of functions on the same plot using matplotlib.
 
-**Description/Purpose:** This routine will compute the root of functions using the bisection method. The root must be contained within the initial bracketed area.
+**Input:** A function, starting value, ending value, size of step
 
-**Input:** A function, tolerance constant, left bound, right bound
+**Output:** A plot
 
-**Output:** One of the roots of the function
-
-**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the bisection iteration. The function should be placed as the return
- statement for the getOutput() method.
+**Usage/Example:** Ensure ploy.py is in the same directory as testplot.py (or whatever the name of the python file is). Each String in *formulas* is an expression to be 
+evaluated by python's eval() function. See this [link](https://realpython.com/python-eval-function/) for more details on eval().
 
 <pre><code> 
-#inclde "math4610lib.h" 
+import plot as pl
 
-class NewFunction : public Rootfinding::Function
-{
-    public:
-        NewFunction(){}; 
-        double getOutput(double input) const {return sin(input);};
-};
-
-int main(void)
-{
-    NewFunction function = NewFunction();
-    double tol = 1000;
-    double leftbound = 0;
-    double rightbound = 10;
-    double root = Rootfinding::bisection(function, tol, leftbound, rightbound);
-}
+pl.graph(['x**2','2*x'], 0, 30, 1)
 </pre></code>
 
-**Implementation/Code:** The following is the code for bisection()
+**Implementation/Code:** The following is the code for graph()
 
 <pre><code>
- double Rootfinding::bisection(const Rootfinding::Function & function, double reduceconst, double leftbound, double rightbound)
-{
-    int setiterations = 0;
+from matplotlib import pyplot as plt
+import numpy as np
 
-    while(reduceconst > 1) 
-    {
-        reduceconst /= 2;
-        setiterations++; // Counts how many iterations to reduce by a given constant
-    }
-
-    double middle;
-    for(int it = 0; it < setiterations ; it++)
-    {
-        middle = (leftbound + rightbound) / 2.0;
-        if(function.getOutput(leftbound) * function.getOutput(middle) < 0) // If boundary contains a root
-        {
-            rightbound = middle;
-        }
-        else
-        {
-            leftbound = middle;
-        }
-    }
-
-    return middle;
-}
+def graph(formulas, start, stop, step):  
+    x = np.arange(start, stop, step)
+    ax = plt.subplot(111)  
+    for formula in formulas:
+        y = eval(formula)
+        ax.plot(x, y, label=formula)
+    ax.legend()  
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.show()
 </pre></code>
 
 **Last Modified:** October/2020
