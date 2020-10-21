@@ -15,5 +15,5 @@ This software manual is for the math4610.a library. The following functions are 
 
 **Rootfinding**
 
-* [double fixedpoint(const Function & function, double x0, double error, double stop)](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md)
+* [double fixedpoint(const Function & function, double x0, double error, double epsilon, double stop)](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md)
 * [double bisection(const Function & function, double reduceconst, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/bisection.md)
