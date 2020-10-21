@@ -5,13 +5,13 @@
 
 **Task 1**
 
-This has been completed. The absolute error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/abserror.md) in my software manual. The relative error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/relerror.md).
+This has been completed. The absolute error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/abserror.md) in my software manual. The relative error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/relerror.md) in my software manual.
 
 <hr>
 
 **Task 2**
 
-This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code.
+This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code. The entry in my software manual for this function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/graph.md)
 <pre><code>
  import plot as pl
 
