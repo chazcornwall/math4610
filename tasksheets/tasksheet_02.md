@@ -3,8 +3,9 @@
 
 **Task 1**
 
-[See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/helloworld.cpp) for source code.
+[See here](https://github.com/chazcornwall/math4610/blob/master/src/task2/helloworld.cpp) for source code. The output for this code is displayed in the image below.
 
+[!](https://github.com/chazcornwall/math4610/blob/master/src/task2/Capture.JPG)
 **Task 2**
 
 Complete.
