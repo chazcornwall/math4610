@@ -5,13 +5,13 @@
 
 **Task 1**
 
-This has been completed. The absolute error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/abserror.md) in my software manual. The relative error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/relerror.md).
+This has been completed. The absolute error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/abserror.md) in my software manual. The relative error function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/relerror.md) in my software manual. There is a test executable that executes all of the functions in the library mathlib4610.a. That executable can be found [here](https://github.com/chazcornwall/math4610/blob/master/test).
 
 <hr>
 
 **Task 2**
 
-This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code.
+This has been completed. [Here](https://github.com/chazcornwall/math4610/blob/master/src/plotting/plot.py) is a link for the python code. The entry in my software manual for this function can be found [here](https://github.com/chazcornwall/math4610/blob/master/software_manual/graph.md).
 <pre><code>
  import plot as pl
 
@@ -30,6 +30,13 @@ The code for the fixed-point iteration root-finding method has been completed. [
 <hr>
 
 **Task 4**
+
+The fixed-point iteration method converges such that
+<img src="https://render.githubusercontent.com/render/math?math=|g'(x)| \leq 1"> where
+<img src="https://render.githubusercontent.com/render/math?math=g(x) = x - {\varepsilon}f(x)">.
+
+In this problem, 
+<img src="https://render.githubusercontent.com/render/math?math=g'(x) = 1 - {\varepsilon}e^{3x^2} - {\varepsilon}6x^2e^{3x^2} - 7{\varepsilon} ">.
 
 Setting the absolute error to 0.01 and epsilon to 0.15, the fixed point iteration method converges. When epsilon is 0.15, the returned root is 0.806. When epsilon is 0.1505, the returned root is 0.002.
 
