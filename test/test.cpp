@@ -6,6 +6,7 @@ class NewFunction : public Rootfinding::Function
     public:
         NewFunction(){}; 
         double getOutput(double input) const {return sin(input);};
+        double getDerivOutput(double input) const {return cos(input);};
 };
 
 int main(void)
@@ -53,4 +54,10 @@ int main(void)
     std::cout << "leftbound: " << leftbound << std::endl;
     std::cout << "rightbound: " << rightbound << std::endl;
     std::cout << "Root: " << Rootfinding::bisection(function, 1000, leftbound, rightbound) << std::endl;
+    std::cout << "Call newtonsMethod on sin(x)!" << std::endl;
+    std::cout << "x0: " << x0 << std::endl;
+    std::cout << "Root: " << Rootfinding::newtonsMethod(function, x0, 0.01, 1000) << std::endl;
+    std::cout << "Call secantMethod on sin(x)!" << std::endl;
+    std::cout << "x0: " << x0 << std::endl;
+    std::cout << "Root: " << Rootfinding::secantMethod(function, x0, 0.01, 1000) << std::endl;
 }
