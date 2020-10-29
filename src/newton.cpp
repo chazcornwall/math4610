@@ -1,7 +1,7 @@
 #include "../include/math4610lib.hpp"
 #include <iostream>
 
-double Rootfinding::newtonsMethod(const Function & function, double x0, double error, double maxiter)
+double Rootfinding::newtonsMethod(const Function & function, double x0, double error, double maxiter, bool Debug)
 {
     int it = 0;
     double currerror = error * 10.0;
@@ -11,6 +11,8 @@ double Rootfinding::newtonsMethod(const Function & function, double x0, double e
     {
         xk_1 = xk - function.getOutput(xk) / function.getDerivOutput(xk);
         currerror = Error::abserror(xk_1, xk); // xk_1 and xk are the same when f(xk) is zero
+        if(Debug)
+            std::cout << "Current error (log): " << log10(currerror) << std::endl;
         xk = xk_1;
         it++;
     }

@@ -1,7 +1,7 @@
 #include "../include/math4610lib.hpp"
 #include <iostream>
 
-double Rootfinding::secantMethod(const Function & function, double x0, double error, int maxiter)
+double Rootfinding::secantMethod(const Function & function, double x0, double error, int maxiter, bool Debug)
 {
     int it = 0;
     double currerror = error * 10.0;
@@ -14,6 +14,8 @@ double Rootfinding::secantMethod(const Function & function, double x0, double er
     {
         xk_2 = xk_1 - fxk_1 * (xk_1 - xk) / (fxk_1 - fxk);
         currerror = Error::abserror(xk_2, xk_1); // xk_2 and xk_1 are the same when f(xk) is zero
+        if(Debug)
+            std::cout << "Current error (log): " << log10(currerror) << std::endl;
         xk = xk_1; // Shift x values
         xk_1 = xk_2;
         fxk = fxk_1; // Shift fx values

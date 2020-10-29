@@ -35,7 +35,6 @@ class NewFunction : public Rootfinding::Function
         NewFunction(){}; 
         double getOutput(double input) const {return sin(input);};
 };
-
 int main()
 {
     NewFunction function = NewFunction();

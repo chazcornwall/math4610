@@ -27,7 +27,13 @@ namespace Rootfinding
     };
     double fixedPoint(const Function & function, double x0, double error, double epsilon, int stop);
     double bisection(const Function & function, double reduceconst, double leftbound, double rightbound);
-    double newtonsMethod(const Function & function, double x0, double error, double maxiter);
-    double secantMethod(const Function & function, double x0, double error, int maxiter);
+    double newtonsMethod(const Function & function, double x0, double error, double maxiter, bool Debug);
+    double secantMethod(const Function & function, double x0, double error, int maxiter, bool Debug);
+    double hybridMethod(const Function & function, double x0, double error, double leftbound, double rightbound);
+}
+
+namespace Regression
+{
+    void linreg(double * inputs, double * x, double * b, int sizeInputs);
 }
 #endif
