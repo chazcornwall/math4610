@@ -26,10 +26,6 @@ the iterations will not converge.
 
 **Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the newton method iteration. The function to be evaluated should be placed as the return statement for the getOutput() method. The derivative of the function to be evaluated should be placed in the return statement for the getDerivOutput() method. The root for this example should be 0.08055.
 
-If this example was written in a file called "main.cpp", the file could be compiled with the following command:
-
-    g++ main.cpp <path to library>/math4610lib.a -o main.exe
-
 <pre><code> 
 #inclde "math4610lib.h" 
 
@@ -50,6 +46,10 @@ int main(void)
     double root = Rootfinding::newtonsMethod(function, x0, error, maxiter, true);
 }
 </pre></code>
+
+If this example was written in a file called "main.cpp", the file could be compiled with the following command:
+
+    g++ main.cpp <path to library>/math4610lib.a -o main.exe
 
 **Implementation/Code:** The following is the code for newtonMethod()
 
