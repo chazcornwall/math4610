@@ -5,3 +5,4 @@ The following list contains links to various assignments
 * [Task 3](http://github.com/chazcornwall/math4610/blob/master/tasksheets/tasksheet_03.md)
 * [Task 4](http://github.com/chazcornwall/math4610/blob/master/tasksheets/tasksheet_04.md)
 * [Task 5](http://github.com/chazcornwall/math4610/blob/master/tasksheets/tasksheet_05.md)
+* [Task 6](http://github.com/chazcornwall/math4610/blob/master/tasksheets/tasksheet_06.md)
