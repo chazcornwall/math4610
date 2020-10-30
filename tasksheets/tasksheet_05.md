@@ -10,7 +10,7 @@ This task has been completed. The image included in Task 3 shows the output of t
 This task has been completed. The image included in Task 3 shows the output of the example function
 
 **Task 3 and Task 4**
-![](../../test/newtonanalysis_trend.JPG)
+![](../test/newtonanalysis_trend.JPG)
 
 The image above shows:
 1. The output and current error of Rootfinding::newtonMethod()
