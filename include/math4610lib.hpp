@@ -34,6 +34,6 @@ namespace Rootfinding
 
 namespace Regression
 {
-    void linreg(double * inputs, double * x, double * b, int sizeInputs);
+    void linreg(const double * const inputs, double * x, const double * const b, int sizeInputs);
 }
 #endif

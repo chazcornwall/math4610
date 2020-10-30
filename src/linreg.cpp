@@ -1,7 +1,7 @@
 #include "../include/math4610lib.hpp"
 #include <iostream>
 
-void Regression::linreg(double * inputs, double * x, double * b, int sizeInputs)
+void Regression::linreg(const double * const inputs, double * x, const double * const b, int sizeInputs)
 {
     // Solve the normal equations: A^T*A*x = A^T*b -> x = (A^T*A)^(-1)*A^T*b
     // The vector x is mapped onto the column space of A
