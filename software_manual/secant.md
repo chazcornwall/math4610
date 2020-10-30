@@ -47,6 +47,10 @@ int main(void)
 }
 </pre></code>
 
+If this example was written in a file called "main.cpp", the file could be compiled with the following command:
+
+    g++ main.cpp <path to library>/math4610lib.a -o main.exe
+
 **Implementation/Code:** The following is the code for secantMethod()
 
 <pre><code>
