@@ -1,4 +1,4 @@
-# double newtonMethod(const Function & function, double x0, double error, double maxiter, bool Debug)
+# double newtonsMethod(const Function & function, double x0, double error, double maxiter, bool Debug)
 
 **Function Name:**           newtonMethod
 
