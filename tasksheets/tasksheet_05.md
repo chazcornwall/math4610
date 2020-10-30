@@ -5,7 +5,7 @@
 
 **Task 1**
 
-The software manual entry for newton's method can be found [here](../software_manual/newton.md). The image included in Task 3 shows that this routine successfully located a root of the example function
+The software manual entry for newton's method can be found [here](../software_manual/newton.md). The source code for this routine can be found [here](../src/newton.cpp). The image included in Task 3 shows that this routine successfully located a root of the example function
 
 <img src="https://render.githubusercontent.com/render/math?math=f(x) = xe^{3x^2} - 7x ">.
 
@@ -13,7 +13,7 @@ The software manual entry for newton's method can be found [here](../software_ma
 
 **Task 2**
 
-The software manual entry for the secant method can be found [here](../software_manual/secant.md). The image included in Task 3 shows that this routine successfully located a root of the function stated in Task 1.
+The software manual entry for the secant method can be found [here](../software_manual/secant.md). The source code for this routine can be found [here](../src/secant.cpp). The image included in Task 3 shows that this routine successfully located a root of the function stated in Task 1.
 
 <hr>
 
@@ -26,16 +26,15 @@ The image above shows:
 2. The output and current error of Rootfinding::secantMethod()
 3. The trend lines that match the error reduction rate
 
-The error printed to the console is the log10() of the actual error. The trend data was produced by Regression::linreg(). In this instance, newton's method had an approximate computational convergence rate of 2.49, which is slightly better than quadratic convergence. The secant method's approximate rate of computational convergence was 1.87, which is also slightly better than its mathematical convergence rate of 1.62. The software manual entry for this routine can be found [here](../software_manual/linreg.md).
+The source code for the executable that created this above image can be found [here](../test/newtonsecantanalysis.cpp). The error printed to the console is the log10() of the actual error. The trend data was produced by Regression::linreg(). In this instance, newton's method had an approximate computational convergence rate of 2.49, which is slightly better than quadratic convergence. The secant method's approximate rate of computational convergence was 1.87, which is also slightly better than its mathematical convergence rate of 1.62. The software manual entry for this routine can be found [here](../software_manual/linreg.md).
 
 <hr>
 
 **Task 5**
 
-The software manual entry for the hybrid method can be found [here](../software_manual/hybrid.md). All of the methods created in this tasksheet have also been successfully implmented into the math4610lib library. [Here](../test/test.cpp) is a test file that I compile to make sure everything is working correctly. Here is the output:
+The software manual entry for the hybrid method can be found [here](../software_manual/hybrid.md). The source code for this routine can be found [here](../src/hybrid.cpp). All of the methods created in this tasksheet have also been successfully implmented into the math4610lib library. [Here](../test/test.cpp) is a test file that I compile to make sure everything is working correctly. Here is the output:
 
 ![](../test/20201030test.JPG)
-
 
 <hr>
 
