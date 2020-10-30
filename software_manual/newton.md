@@ -10,12 +10,12 @@
 
 For example,
 
-    g++ newtonMethod.cpp abserror.cpp
+    g++ newton.cpp abserror.cpp
 
 will produce an executable **./a.exe** than can be executed. If you want a different name, the following will work a bit
 better
 
-    g++ bisection.cpp abserror.cpp -o bisection.exe
+    g++ newton.cpp abserror.cpp -o newton.exe
 
 **Description/Purpose:** This routine will compute the root of functions using newton's method. The initial guess, x0, must be sufficiently close to the root or
 the iterations will not converge.
@@ -24,9 +24,11 @@ the iterations will not converge.
 
 **Output:** One of the roots of the function
 
-**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the newton method iteration. The function to be evaluated should be placed as the return
- statement for the getOutput() method. The derivative of the function to be evaluated should be placed in the return statement for the getDerivOutput() method. The root for this example
- should be 0.08055.
+**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the newton method iteration. The function to be evaluated should be placed as the return statement for the getOutput() method. The derivative of the function to be evaluated should be placed in the return statement for the getDerivOutput() method. The root for this example should be 0.08055.
+
+If this example was written in a file called "main.cpp", the file could be compiled with the following command:
+
+    g++ main.cpp <path to library>/math4610lib.a -o main.exe
 
 <pre><code> 
 #inclde "math4610lib.h" 
