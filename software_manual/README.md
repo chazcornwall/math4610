@@ -21,6 +21,10 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [double secantMethod(const Function & function, double x0, double error, double maxiter, bool Debug)](https://github.com/chazcornwall/math4610/blob/master/software_manual/secant.md)
 * [double hybridMethod(const Function & function, double x0, double error, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid.md)
 
+**Regression**
+* [void linreg(double * inputs, double x0, double error, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid.md)
+
+
 *Miscellaneous (other programming languages)*
 
 * [graph(formulas, start, stop, step)](https://github.com/chazcornwall/math4610/blob/master/software_manual/graph.md)
