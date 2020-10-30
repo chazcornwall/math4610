@@ -18,6 +18,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [double fixedpoint(const Function & function, double x0, double error, double epsilon, double stop)](https://github.com/chazcornwall/math4610/blob/master/software_manual/fixedpoint.md)
 * [double bisection(const Function & function, double reduceconst, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/bisection.md)
 * [double newtonsMethod(const Function & function, double x0, double error, double maxiter, bool Debug)](https://github.com/chazcornwall/math4610/blob/master/software_manual/newton.md)
+* [double secantMethod(const Function & function, double x0, double error, double maxiter, bool Debug)](https://github.com/chazcornwall/math4610/blob/master/software_manual/secant.md)
 
 *Miscellaneous (other programming languages)*
 
