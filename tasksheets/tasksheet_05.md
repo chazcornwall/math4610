@@ -39,6 +39,7 @@ The software manual entry for the hybrid method can be found [here](../software_
 <hr>
 
 **Task 6**
+
 Rootfinding is a pratical task in field such as science and engineering. Due to the increasing difficulty of finding roots as the order of polynomials increase (no analytical solution exists for 5th order or greater), iteration must be used. Common methods for finding roots are bisection, newton's method, and secant method. The main drawback of newton's method is the necessity of calculating a derivative at every iteration. Newton's method and secant method are also very sensitive to the initial guess, x0. Bisection is definitely the most robust of these three methods; however, the convergence is much slower than the other two methods. A common approach is to combine bisection with a faster converging algorithm, such as newton's or secant method. 
 
 [http://www.math.niu.edu/~dattab/MATH435.2013/ROOT_FINDING.pdf](http://www.math.niu.edu/~dattab/MATH435.2013/ROOT_FINDING.pdf)
