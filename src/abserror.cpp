@@ -6,6 +6,7 @@ double Error::abserror(double approx, double num)
     return std::abs(approx - num);
 }
 
+
 #ifdef TEST_
 int main()
 {
