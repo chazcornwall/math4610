@@ -1,4 +1,4 @@
-# double * hybridMethodAllZeros(const Function & function, int * numOfRoots, double error, double leftbound, double rightbound, double stepsize)
+# double * hybridMethodAllRoots(const Function & function, int * numOfRoots, double error, double leftbound, double rightbound, double stepsize)
 
 **Function Name:**           hybridMethodAllZeros
 
