@@ -20,6 +20,9 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [double newtonsMethod(const Function & function, double x0, double error, double maxiter, bool Debug)](https://github.com/chazcornwall/math4610/blob/master/software_manual/newton.md)
 * [double secantMethod(const Function & function, double x0, double error, double maxiter, bool Debug)](https://github.com/chazcornwall/math4610/blob/master/software_manual/secant.md)
 * [double hybridMethod(const Function & function, double x0, double error, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid.md)
+* [double hybridMethodNearestToZero(const Function & function, double error, double leftbound, double rightbound, double stepsize)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid0.md)
+* [double hybridMethodNearestToZeroSecant(const Function & function, double error, double leftbound, double rightbound, double stepsize)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid0secant.md)
+* [double * hybridMethodAllRoots(const Function & function, int * numOfRoots, double error, double leftbound, double rightbound, double stepsize)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybridAllZeros.md)
 
 **Regression**
 * [void linreg(double * inputs, double x0, double error, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid.md)
