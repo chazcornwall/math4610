@@ -9,6 +9,28 @@ When I pick a value sufficiently close to zero and close to the root, newton's m
 
 **Task 2**
 
-Setting x0 to -5 and 6 did not change the output of newton's method from that from Task 1. 
+Setting x0 to -5 and 6 did not change the output of newton's method from that from Task 1. If x0 is set too close to zero, the derivative will become zero and newton's method will not converge. 
+
+**Task 3 and Task 4**
+
+The image below shows the output of the methods used to find roots closest to zero. 
+
+![](../images/tasksheet6_othertasks.JPG)
+
+**Task 5**
+
+This image below shows the output of the method used to find all zeros in the bracket [-5,6]. 
+
+![](../images/tasksheet6_task5.JPG)
+
+**Task 6**
+
+The Durand-Kerner method is used for finding the roots of polynomials. Essentially, this method performs simulatenous fixed point iteration for all roots. In polynomials, the number of roots is known by just recording the order of the equations (i.e. x^4 + x^3 + 54x^2 + x = 0 has four roots). The Aberth method is also used for finding the roots of polynomials; however, this method converges quadratically instead of the linear convergence of the Durand-Kerner method. The Aberth method combines strategies from the Durand-Kerner method and Newton's Method. An important characteristc of the methods mentioned above is their slow convergence when there is a multiplicity of zeros. These methods are only linearly convergent in this special case.
+
+https://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
+https://en.wikipedia.org/wiki/Aberth_method
+https://homepage.divms.uiowa.edu/~atkinson/ftp/ENA_Materials/Overheads/sec_3-5.pdf
+
+
 
 
