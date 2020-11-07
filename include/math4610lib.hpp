@@ -30,6 +30,7 @@ namespace Rootfinding
     double newtonsMethod(const Function & function, double x0, double error, double maxiter, bool Debug);
     double secantMethod(const Function & function, double x0, double error, int maxiter, bool Debug);
     double hybridMethod(const Function & function, double x0, double error, double leftbound, double rightbound);
+    double * hybridMethodAllRoots(const Function & function, int * numOfRoots, double error, double leftbound, double rightbound, double stepsize);
     double hybridMethodNearestToZero(const Function & function, double error, double leftbound, double rightbound, double stepsize);
     double hybridMethodNearestToZeroSecant(const Function & function, double error, double leftbound, double rightbound, double stepsize);
 }

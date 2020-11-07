@@ -12,12 +12,12 @@ class NewFunction : public Rootfinding::Function
 int main()
 {
     NewFunction function = NewFunction();
-
+    
     /*********************************/
     // Task 1: Try all four methods for finding roots
     /*********************************/
     std::cout << "TASK 1" << std::endl;
-    double fixedPointRoot = Rootfinding::fixedPoint(function, 0.5, 0.01, 1.0, 10000 );
+    double fixedPointRoot = Rootfinding::fixedPoint(function, 0.5, 0.01, 0.1, 10000);
     double bisectionRoot = Rootfinding::bisection(function, 10000, -1.0, 2.0);
     double newtonRoot = Rootfinding::newtonsMethod(function, 0.2, 0.01, 1000, false);
     double secantRoot = Rootfinding::secantMethod(function, 0.2, 0.01, 1000, false);
@@ -58,8 +58,7 @@ int main()
 
     std::cout << "Leftbound: -5.0, Rightbound: 6.0" << std::endl;
     std::cout << "Hybrid Method with secant method for finding zero closest to root: " << hybridClosestToZeroRoot << std::endl;
-
-
+    std::cout << std::endl;
 
     return 0;
 }
