@@ -28,6 +28,7 @@ better
 
 <pre><code> 
 #inclde "math4610lib.h" 
+#include <iostream>
 
 class NewFunction : public Rootfinding::Function
 {
