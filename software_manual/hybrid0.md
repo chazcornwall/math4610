@@ -1,6 +1,6 @@
-# double hybridMethod(const Function & function, double x0, double error, double leftbound, double rightbound)
+# double hybridMethodNearestToZero(const Function & function, double error, double leftbound, double rightbound, double stepsize)
 
-**Function Name:**           hybridMethod
+**Function Name:**           hybridMethodNearestToZero
 
 **Namespace:**               Rootfinding
 
@@ -10,22 +10,21 @@
 
 For example,
 
-    g++ hybrid.cpp abserror.cpp
+    g++ hybrid0.cpp abserror.cpp
 
 will produce an executable **./a.exe** than can be executed. If you want a different name, the following will work a bit
 better
 
-    g++ hybrid.cpp abserror.cpp -o hybrid.exe
+    g++ hybrid0.cpp abserror.cpp -o hybrid0.exe
 
-**Description/Purpose:** This routine will compute the root of functions using the newton method for 100 iterations at most. If at any point the error from using newton's method does not decrease, 
-a 4 bisection iterations will be implemented to reduce the bracketing area by a factor of 10. The initial guess, x0, must be within the leftbound and rightbound brackets.
+**Description/Purpose:** This routine will compute the root of a function that is closest to zero and within the initial leftbound and rightbound bracket given as input to hybridMethodNearestToZero. This routine finds the new bracket that contains the root closest to zero by stepping from zero up to the rightbound bracket and from zero down to the leftbound bracket. Once this bracket has been found, a hybrid method of netwon's method and bisection are used to find the root.
 
-**Input:** A function, initial guess, desired error, leftbound bracket, rightbound bracket
+**Input:** A function, desired error, leftbound bracket, rightbound bracket, step size
 
 **Output:** One of the roots of the function
 
-**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated during the secant method iteration. The function to be evaluated should be placed as the return
- statement for the getOutput() method. The root for this example should be 3.14159.
+**Usage/Example:** A NewFunction class must be created that contains the function to be evaluated. The function to be evaluated should be placed as the return
+ statement for the getOutput() method. The bracket sent to the routine must contain zero. The root for this example should be 1.5708 (or PI/2).
 
 <pre><code> 
 #inclde "math4610lib.h" 
@@ -34,18 +33,17 @@ class NewFunction : public Rootfinding::Function
 {
     public:
         NewFunction(){}; 
-        double getOutput(double input) const {return sin(input);};
-        double getDerivOutput(double input) const {return cos(input);};
+        double getOutput(double input) const {return cos(input);};
+        double getDerivOutput(double input) const {return -sin(input);};
 };
 
-int main(void)
+int main()
 {
     NewFunction function = NewFunction();
-    double x0 = 5;
-    double error = 0.01;
-    double leftbound = -5.0;
-    double rightbound = 10.0;
-    double root = Rootfinding::hybridMethod(function, x0, error, leftbound, rightbound);
+    std::cout << "Function: cos(x)" << std::endl;
+    std::cout << "Root: " << Rootfinding::hybridMethodNearestToZero(function, 0.01, -20, 20, 0.1) << std::endl;
+    std::cout << "Root should be + or - " << 3.14159 / 2.0 << std::endl;
+    return 0;
 }
 </pre></code>
 
@@ -53,17 +51,51 @@ If this example was written in a file called "main.cpp", the file could be compi
 
     g++ main.cpp <path to library>/math4610lib.a -o main.exe
 
-**Implementation/Code:** The following is the code for hybridMethod()
+**Implementation/Code:** The following is the code for hybridMethodNearerstToZero()
 
 <pre><code>
- double Rootfinding::hybridMethod(const Function & function, double x0, double error, double leftbound, double rightbound)
+ double Rootfinding::hybridMethodNearestToZero(const Function & function, double error, double leftbound, double rightbound, double stepsize)
 {
+    if (leftbound >= 0 || rightbound <= 0)
+    {
+        std::cout << "ERROR: leftbound must be negative and rightbound must be positive!" << std::endl;
+        return 0.0;
+    }
+
     int it = 0;
     const int MAX_ITERATIONS = 100;
     const double REDUCE_CONSTANT = 10.0;
     double currerror = error * 10.0;
     double lasterror = currerror;
-    double xk = x0;
+
+    double currLeftbound = 0;
+    double currRightbound = 0;
+    double testForZeroNeg = function.getOutput(currLeftbound) * function.getOutput(0);
+    double testForZeroPos = function.getOutput(0) * function.getOutput(currRightbound);
+
+    // Find the closest point at which the function crosses the x axis
+    while(testForZeroNeg > 0 && testForZeroPos > 0 && (currLeftbound < abs(leftbound) || currRightbound < abs(rightbound)))
+    {
+        currLeftbound -= stepsize;
+        currRightbound += stepsize;
+        testForZeroNeg = function.getOutput(currLeftbound) * function.getOutput(0);
+        testForZeroPos = function.getOutput(0) * function.getOutput(currRightbound);
+    }
+
+    // Reassign bounds so that
+    if(testForZeroNeg < 0 && currLeftbound < abs(leftbound))
+    {
+        leftbound = currLeftbound;
+        rightbound = 0.0;
+    }
+    else if(testForZeroPos < 0 && currRightbound < abs(rightbound))
+    {
+        rightbound = currRightbound;
+        leftbound = 0.0;
+    }
+    
+
+    double xk = (leftbound + rightbound) / 2.0; // Calculate x0 as the middle of the bounds
     double xk_1;
     while(currerror > error && it < MAX_ITERATIONS)
     {
