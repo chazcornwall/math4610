@@ -19,7 +19,7 @@ int main()
     std::cout << "TASK 5" << std::endl;
     int * numOfRoots;
     double * hybridAllRoots;
-    hybridAllRoots = Rootfinding::hybridMethodAllRoots(function, numOfRoots, 0.01, -5.0, 6.0, 0.1);
+    hybridAllRoots = Rootfinding::hybridMethodAllRoots(function, numOfRoots, 0.01, -5.0, 6.0, 0.001);
 
     for(int i = 0; i < *numOfRoots; i++)
     {
