@@ -1,6 +1,6 @@
 # double * hybridMethodAllRoots(const Function & function, int * numOfRoots, double error, double leftbound, double rightbound, double stepsize)
 
-**Function Name:**           hybridMethodAllZeros
+**Function Name:**           hybridMethodAllRoots
 
 **Namespace:**               Rootfinding
 
