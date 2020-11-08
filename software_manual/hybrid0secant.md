@@ -27,8 +27,7 @@ better
  statement for the getOutput() method. The bracket sent to the routine must contain zero. The root for this example should be 1.5708 (or PI/2).
 
 <pre><code> 
-#inclde "math4610lib.h" 
-#include <iostream>
+#include "math4610lib.h" 
 
 class NewFunction : public Rootfinding::Function
 {
