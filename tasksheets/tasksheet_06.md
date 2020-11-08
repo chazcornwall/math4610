@@ -1,6 +1,10 @@
 # Solutions for Tasksheet 6
 [See here](https://github.com/jvkoebbe/math4610/blob/master/tasksheets/tasksheet_06/pdf/tasksheet_06.pdf) for problem set.
 
+All the tasks in this tasksheet use the following function as an input for the root finding methods:
+
+<img src="https://render.githubusercontent.com/render/math?math=f(x) = e^{-x^2}sin(4x^2 - 1.0) + 0.051">.
+
 <hr>
 
 **Task 1**
