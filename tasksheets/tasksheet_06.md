@@ -5,6 +5,8 @@ All the tasks in this tasksheet use the following function as an input for the r
 
 <img src="https://render.githubusercontent.com/render/math?math=f(x) = e^{-x^2}sin(4x^2 - 1.0) %2B 0.051">.
 
+![](../images/taskheet6_function.JPG)
+
 <hr>
 
 **Task 1**
