@@ -39,4 +39,36 @@ namespace Regression
 {
     void linreg(const double * const inputs, double * x, const double * const b, int sizeInputs);
 }
+
+namespace LinearAlgebra
+{
+    enum MatrixType
+    {
+        UPPR,
+        LWR,
+        DIAG,
+        SQR
+    };
+
+    class Matrix
+    {
+        private:
+            const size_t NUM_ROWS;
+            const size_t NUM_COLS;
+            reduceRowEchelonPrivate() const;
+            backSubstitution() const;
+        public:
+            double ** data;
+            Matrix(const int & numRows, const int & numCols, const double & value, MatrixType type);
+            Matrix(const int & numRows, const int & numCols, const double & value);
+            size_t getNumRows() const;
+            size_t getNumCols() const;
+            Matrix solve(const LinearAlgebra::Matrix & b) const;
+            reduceRowEchelon();
+            Matrix operator+(const LinearAlgebra::Matrix & operand) const;
+            Matrix operator+=(const LinearAlgebra::Matrix & operand) const;
+            void print(int minRow, int maxRow, int minCol, int maxCol) const;
+    };
+
+}
 #endif
