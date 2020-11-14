@@ -5,27 +5,37 @@ All the tasks in this tasksheet use the following function as an input for the r
 
 <img src="https://render.githubusercontent.com/render/math?math=f(x) = e^{-x^2}sin(4x^2 - 1.0) %2B 0.051">.
 
+![](../images/tasksheet6_function.JPG)
+
 <hr>
 
 **Task 1**
 
 When I pick a value sufficiently close to zero and close to the root, newton's method and secant method find the root. The fixed point iteration method does not converge unless I make epsilon 0.1. The bisection method also converged to the correct root (closest to zero) if the bounds were evenly spaced about 0 (i.e. [-5,5]). Considering how the bisection algorithm works, this behavior is dependent on the specific function that was used and is not characteristic of the algorithm itself. This image under Task 3 and Task 4 in this sheet shows the output.
 
+<hr>
+
 **Task 2**
 
 Setting x0 to -5 and 6 did not change the output of newton's method from that from Task 1. If x0 is set too close to zero, the derivative will become zero and newton's method will not converge. 
 
+<hr>
+
 **Task 3 and Task 4**
 
-The image below shows the output of the methods used to find roots closest to zero. The software manual entries for these methods can be found [here](../software_manual/README.md). The source code for hybridMethodNearestToZero can be found [here](../src/hybrid0.cpp), and the source code for hybridMethodNearestToZeroSecant can be found [here](../src/hybrid0secant.cpp).
+The image below shows the output of the methods used to find roots closest to zero. The source code that created this output can be found [here](../test/task6/task6.cpp). The software manual entries for these methods can be found [here](../software_manual/README.md). The source code for hybridMethodNearestToZero can be found [here](../src/hybrid0.cpp), and the source code for hybridMethodNearestToZeroSecant can be found [here](../src/hybrid0secant.cpp).
 
 ![](../images/tasksheet6_othertasks.JPG)
 
+<hr>
+
 **Task 5**
 
-This image below shows the output of the method used to find all zeros in the bracket [-5,6]. The software manual entries for [hybridAllRoots](../src/hybridAllRoots.cpp) can be found [here](../software_manual/README.md).
+This image below shows the output of the method used to find all zeros in the bracket [-5,6]. The source code that created this output can be found [here](../test/task6/task6AllRoots.cpp). The software manual entries for [hybridAllRoots](../src/hybridAllRoots.cpp) can be found [here](../software_manual/README.md).
 
 ![](../images/tasksheet6_task5.JPG)
+
+<hr>
 
 **Task 6**
 
