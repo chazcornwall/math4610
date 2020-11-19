@@ -179,4 +179,9 @@ The following code block generated the output seen in the image below. The follo
 
 **Task 6**
 
+All the columns in A when considering the matrix equation for solving a system of linear equations, Ax = b, must be linearly independent and b must exist in the span of the columns of A [1][3]. If the condition previously stated is satisfied, then the matrix dimensions m and n are equal to each other (the matrix is square), and the inverse of A (A^-1) exists[2]. When solving linear systems of equations on a computer, extra care needs to be taken to avoid pivots that are zero or even close to zero. As values approach machine precision (usually 10^-8 for float and 10^-16 for doubles), the pivots can be become unstable.
+
+[1] https://en.wikipedia.org/wiki/System_of_linear_equations#Properties
+[2] https://see.stanford.edu/materials/lsoeldsee263/Additional1c-matrix-primer-lect3.pdf
+[3] https://textbooks.math.gatech.edu/ila/matrix-equations.html
 
