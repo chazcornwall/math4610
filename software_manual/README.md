@@ -27,6 +27,13 @@ This software manual is for the math4610.a C++ library. The following functions 
 **Regression**
 * [void linreg(double * inputs, double x0, double error, double leftbound, double rightbound)](https://github.com/chazcornwall/math4610/blob/master/software_manual/hybrid.md)
 
+**LinearAlgebra**
+* [Matrix solve(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solve.md)
+* [Matrix solveLWR(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveLWR.md)
+* [Matrix solveDIAG(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveDIAG.md)
+* [Matrix duplicate() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/duplicate.md)
+* [Matrix transpose() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/transpose.md)
+* [void reduceRowEchelon()](https://github.com/chazcornwall/math4610/blob/master/software_manual/rowEchelon.md)
 
 *Miscellaneous (other programming languages)*
 
