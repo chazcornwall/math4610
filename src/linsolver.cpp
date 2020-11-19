@@ -259,6 +259,25 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLWR(LinearAlgebra::Matrix & b)
     return x;
 }
 
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveDIAG(LinearAlgebra::Matrix & b) const
+{
+    Matrix x(static_cast<int>(NUM_ROWS), 1, 0.0); // NUM_ROWS and NUM_COLS should be equal
+
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        if(this->data[row][row] != 0)
+        {
+            x.data[row][0] = b.data[row][0] / this->data[row][row];
+        }
+        else
+        {
+            std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << row << ", " << row << ")" << std::endl;
+            return x;
+        }
+    }
+    return x;
+}
+
 /**********************************************************************************************************************
 *MISCELLANEOUS MATRIX OPERATIONS/TESTS
 ***********************************************************************************************************************/

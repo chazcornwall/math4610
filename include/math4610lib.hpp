@@ -70,6 +70,7 @@ namespace LinearAlgebra
             size_t getNumCols() const;
             Matrix solve(LinearAlgebra::Matrix & b) const;
             Matrix solveLWR(LinearAlgebra::Matrix & b) const;
+            Matrix solveDIAG(LinearAlgebra::Matrix & b) const;
             Matrix duplicate() const;
             Matrix transpose() const;
             void reduceRowEchelon();

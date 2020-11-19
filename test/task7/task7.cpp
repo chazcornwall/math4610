@@ -69,7 +69,7 @@ int main()
     std::cout << std::endl;
     std::cout << "b" << std::endl;
     b.print();
-    LinearAlgebra::Matrix x2 = A_DIAG.solve(b);
+    LinearAlgebra::Matrix x2 = A_DIAG.solveDIAG(b);
     std::cout << "x" << std::endl;
     x2.print();
 
