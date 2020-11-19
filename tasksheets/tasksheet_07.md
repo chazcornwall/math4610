@@ -3,7 +3,7 @@
 
 All the tasks in this tasksheet were executed by running a computer program that executes all of the operations required in each task. Each task will have a screenshot of the output that was printed to the console. The source code for this program can be found [here](../test/task7/task7.cpp). To verify that the system of equations was solved correctly, function named
 
-  LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const Linear::Algebra & x, const LinearAlgebra::Matrix & b)
+    LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const Linear::Algebra & x, const LinearAlgebra::Matrix & b)
   
 is called to double check the solution. The statement "System solved correctly" indicates that this function produced a positive result.
 
