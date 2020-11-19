@@ -11,9 +11,17 @@ int main()
 
     size_t squareSize = 10;
     LinearAlgebra::Matrix A(squareSize, squareSize, LinearAlgebra::UPPR);
-    LinearAlgebra::Matrix b(squareSize, 0, 1.0);
+    std::cout << "A" << std::endl;
+    A.print();
+    std::cout << std::endl;
+    LinearAlgebra::Matrix b(squareSize, 1, 1.0);
+    std::cout << "b" << std::endl;
+    b.print();
 
     LinearAlgebra::Matrix x = A.solve(b);
+    std::cout << std::endl;
+    std::cout << "x" << std::endl;
+    x.print();
     LinearAlgebra::verifySolution(A, x, b);
 
     // Task 2
@@ -23,8 +31,15 @@ int main()
     std::cout << std::endl;
 
     LinearAlgebra::Matrix A_LR(squareSize, squareSize, LinearAlgebra::LWR);
-    A_LR.transpose();
-    LinearAlgebra::Matrix x1 = A_LR.solve(b);
+    std::cout << "A" << std::endl;
+    A_LR.print();
+    std::cout << std::endl;
+    std::cout << "b" << std::endl;
+    b.print();
+    LinearAlgebra::Matrix x1 = A_LR.solveLWR(b);
+    std::cout << std::endl;
+    std::cout << "x" << std::endl;
+    x1.print();
     LinearAlgebra::verifySolution(A_LR, x1, b);
 
     // Task 3
@@ -49,7 +64,15 @@ int main()
     std::cout << "****************************************************" << std::endl;
     std::cout << std::endl;
 
+    std::cout << "A" << std::endl;
+    A_DIAG.print();
+    std::cout << std::endl;
+    std::cout << "b" << std::endl;
+    b.print();
     LinearAlgebra::Matrix x2 = A_DIAG.solve(b);
+    std::cout << "x" << std::endl;
+    x2.print();
+
     LinearAlgebra::verifySolution(A_DIAG, x2, b);
 
     // Task 5

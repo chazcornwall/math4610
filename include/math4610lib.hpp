@@ -60,6 +60,7 @@ namespace LinearAlgebra
             Matrix reduceRowEchelonPrivate() const;
             Matrix reduceRowEchelon(LinearAlgebra::Matrix & b) const;
             Matrix backSubstitution(const LinearAlgebra::Matrix & b) const;
+            Matrix forwardSubstitution(const LinearAlgebra::Matrix & b) const;
         public:
             double ** data;
             Matrix(const int & numRows, const int & numCols, const double & value, MatrixType type);
@@ -68,6 +69,7 @@ namespace LinearAlgebra
             size_t getNumRows() const;
             size_t getNumCols() const;
             Matrix solve(LinearAlgebra::Matrix & b) const;
+            Matrix solveLWR(LinearAlgebra::Matrix & b) const;
             Matrix duplicate() const;
             Matrix transpose() const;
             void reduceRowEchelon();

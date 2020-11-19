@@ -211,12 +211,51 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::backSubstitution(const LinearAlgebr
     return x;
 }
 
+LinearAlgebra::Matrix LinearAlgebra::Matrix::forwardSubstitution(const LinearAlgebra::Matrix & b) const
+{
+    Matrix x(static_cast<int>(NUM_ROWS), 1, 0.0); // NUM_ROWS and NUM_COLS should be equal
+    
+    if(this->data[0][0] == 0)
+    {
+        std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << NUM_ROWS - 1 << ", " << NUM_ROWS - 1 << ")" << std::endl;
+        return x;
+    }
+    x.data[0][0] = b.data[0][0] / this->data[0][0];
+    for(size_t row = 1; row < NUM_ROWS; row++) // Start at the second to last row
+    {
+        double sum = 0.0;
+        for(size_t col = 0; col < row; col++)
+        {
+            sum += this->data[row][col] * x.data[col][0]; // Calculate sum using results from past iterations
+        }
+        if(this->data[row][row] == 0)
+        {
+            std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << row << ", " << row << ")" << std::endl;
+            return x;
+        }
+        x.data[row][0] = (b.data[row][0] - sum) / this->data[row][row];
+    }
+
+    return x;
+}
+
+
+
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) const
 {
     // In the equation Ax = b, neither A nor b or changed in this function. 
     Matrix bDuplicate = b.duplicate();
     Matrix reduced = reduceRowEchelon(bDuplicate); 
     Matrix x = reduced.backSubstitution(bDuplicate);
+    return x;
+}
+
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLWR(LinearAlgebra::Matrix & b) const
+{
+    // In the equation Ax = b, neither A nor b or changed in this function. 
+    Matrix bDuplicate = b.duplicate(); 
+    Matrix copy = this->duplicate();
+    Matrix x = copy.forwardSubstitution(bDuplicate);
     return x;
 }
 
@@ -444,6 +483,10 @@ int main()
     Random1.print();
     LinearAlgebra::Matrix Random2(numRows, numCols, LinearAlgebra::LWR);
     Random2.print();
+
+    LinearAlgebra::Matrix xdf = Random2.solveLWR(b);
+    LinearAlgebra::verifySolution(Random2, xdf, b);
+
     LinearAlgebra::Matrix Random3(numRows, numCols, LinearAlgebra::UPPR);
     Random3.print();
 
