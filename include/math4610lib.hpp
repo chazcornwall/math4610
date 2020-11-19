@@ -1,6 +1,8 @@
 #ifndef MATH4610LIB_
 #define MATH4610LIB_
 #include <cmath>
+#include <stdlib.h>  
+#include <time.h>
 // #define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
@@ -55,20 +57,30 @@ namespace LinearAlgebra
         private:
             const size_t NUM_ROWS;
             const size_t NUM_COLS;
-            reduceRowEchelonPrivate() const;
-            backSubstitution() const;
+            Matrix reduceRowEchelonPrivate() const;
+            Matrix reduceRowEchelon(LinearAlgebra::Matrix & b) const;
+            Matrix backSubstitution(const LinearAlgebra::Matrix & b) const;
         public:
             double ** data;
             Matrix(const int & numRows, const int & numCols, const double & value, MatrixType type);
+            Matrix(const int & numRows, const int & numCols, MatrixType type);
             Matrix(const int & numRows, const int & numCols, const double & value);
             size_t getNumRows() const;
             size_t getNumCols() const;
-            Matrix solve(const LinearAlgebra::Matrix & b) const;
-            reduceRowEchelon();
+            Matrix solve(LinearAlgebra::Matrix & b) const;
+            Matrix duplicate() const;
+            Matrix transpose() const;
+            void reduceRowEchelon();
+            void print(int minRow, int maxRow, int minCol, int maxCol) const;
+            void print() const;
             Matrix operator+(const LinearAlgebra::Matrix & operand) const;
             Matrix operator+=(const LinearAlgebra::Matrix & operand) const;
-            void print(int minRow, int maxRow, int minCol, int maxCol) const;
+            Matrix operator-(const LinearAlgebra::Matrix & operand) const;
+            Matrix operator-=(const LinearAlgebra::Matrix & operand) const;
+            Matrix operator*(const double & operand) const;
     };
+
+    bool verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b);
 
 }
 #endif

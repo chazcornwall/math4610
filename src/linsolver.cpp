@@ -221,7 +221,7 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) co
 }
 
 /**********************************************************************************************************************
-*MISCELLANEOUS MATRIX OPERATIONS
+*MISCELLANEOUS MATRIX OPERATIONS/TESTS
 ***********************************************************************************************************************/
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::transpose() const
@@ -259,6 +259,33 @@ void LinearAlgebra::Matrix::reduceRowEchelon()
             }
         }
     }
+}
+
+bool LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b)
+{
+    bool testLinearSolver = true;
+    for(size_t row = 0; row < A.getNumRows(); row++)
+    {
+        double sum = 0.0;
+        for(size_t col = 0; col < A.getNumCols(); col++)
+        {
+            sum += A.data[row][col] * x.data[col][0];
+        }
+
+        testLinearSolver = (abs(sum - b.data[row][0]) < 0.001);
+        if(!testLinearSolver)
+        {
+            std::cout << "Row " << row << " is not solved by x." << std::endl;
+            std::cout << "Sum was " << sum << " , but should be " << b.data[row][0] << std::endl;
+        }
+    }
+
+    if(testLinearSolver)
+    {
+        std::cout << "System solved correctly!" << std::endl;
+    }
+
+    return testLinearSolver;
 }
 
 /**********************************************************************************************************************
@@ -448,27 +475,7 @@ int main()
     std::cout << "Testing solution for matrix equation..." << std::endl;
     LinearAlgebra::Matrix x = A.solve(b);
 
-    bool testLinearSolver = true;
-    for(size_t row = 0; row < A.getNumRows(); row++)
-    {
-        double sum = 0.0;
-        for(size_t col = 0; col < A.getNumCols(); col++)
-        {
-            sum += A.data[row][col] * x.data[col][0];
-        }
-
-        testLinearSolver = (abs(sum - b.data[row][0]) < 0.001);
-        if(!testLinearSolver)
-        {
-            std::cout << "Row " << row << " is not solved by x." << std::endl;
-            std::cout << "Sum was " << sum << " , but should be " << b.data[row][0] << std::endl;
-        }
-    }
-
-    if(testLinearSolver)
-    {
-        std::cout << "System solved correctly!" << std::endl;
-    }
+    LinearAlgebra::verifySolution(A, x, b);
 
     std::cout << "Testing operator overloads..." << std::endl;
     LinearAlgebra::Matrix C = A + B;
