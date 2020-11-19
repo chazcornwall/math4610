@@ -5,9 +5,7 @@ All the tasks in this tasksheet were executed by running a computer program that
 
     LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const Linear::Algebra & x, const LinearAlgebra::Matrix & b)
   
-is called to double check the solution. The statement "System solved correctly" indicates that this function produced a positive result. The source code for the matrix operations can be found [here](../src/linsolver.cpp)
-
-<img src="https://render.githubusercontent.com/render/math?math=f(x) = e^{-x^2}sin(4x^2 - 1.0) %2B 0.051">.
+is called to double check the solution. The statement "System solved correctly" indicates that this function produced a positive result. The source code for the matrix operations can be found [here](../src/linsolver.cpp).
 
 To facilitate the matrix equation solving, the following namespace was added to the math4610lib.a archive. 
 
