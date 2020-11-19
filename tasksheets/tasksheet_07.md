@@ -160,7 +160,7 @@ The following code block generated the output seen in the image below. Since all
 
 **Task 5**
 
-The following code block generated the output seen in the image below. The following lines of code place the matrix A_ALL into row echelon form by berforming subsequent row operations such that the resulting matrix is in upper triangular form.
+The following code block generated the output seen in the image below. The following lines of code place the matrix A_ALL into row echelon form by performing subsequent row operations such that the resulting matrix is in upper triangular form.
 
     // Task 5
     std::cout << "****************************************************" << std::endl;
