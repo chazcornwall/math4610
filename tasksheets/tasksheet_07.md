@@ -87,11 +87,49 @@ The following code block generated the output seen in the image below. This code
 
 **Task 2**
 
+The following code block generated the output seen in the image below. Another solving function (solveLWR) had to be created to accomodate the matrix not being in row echelon form. The solveLWR function used forward substitution to solve the system of equations.
+
+    // Task 2
+    std::cout << "****************************************************" << std::endl;
+    std::cout << "TASK 2" << std::endl;
+    std::cout << "****************************************************" << std::endl;
+    std::cout << std::endl;
+
+    LinearAlgebra::Matrix A_LR(squareSize, squareSize, LinearAlgebra::LWR);
+    std::cout << "A" << std::endl;
+    A_LR.print();
+    std::cout << std::endl;
+    std::cout << "b" << std::endl;
+    b.print();
+    LinearAlgebra::Matrix x1 = A_LR.solveLWR(b);
+    std::cout << std::endl;
+    std::cout << "x" << std::endl;
+    x1.print();
+    LinearAlgebra::verifySolution(A_LR, x1, b);
+
 ![](../images/tasksheet7_task2.JPG)
 
 <hr>
 
 **Task 3**
+
+The following code block generated the output seen in the image below. This section illustrates how different types of matrices are created. The used has the choices to initialize a matrix with random values as either a LWR (lower triagular), UPPR (upper triangular), SQR (all indices), or DIAG (diagonal).
+
+    // Task 3
+    std::cout << "****************************************************" << std::endl;
+    std::cout << "TASK 3" << std::endl;
+    std::cout << "****************************************************" << std::endl;
+    std::cout << std::endl;
+
+    size_t squareSize2 = 7;
+    LinearAlgebra::Matrix A_LWR(squareSize2, squareSize2, LinearAlgebra::LWR);
+    A_LWR.print();
+    LinearAlgebra::Matrix A_UPPR(squareSize2, squareSize2, LinearAlgebra::UPPR);
+    A_UPPR.print();
+    LinearAlgebra::Matrix A_ALL(squareSize2, squareSize2, LinearAlgebra::SQR);
+    A_ALL.print();
+    LinearAlgebra::Matrix A_DIAG(squareSize2, squareSize2, LinearAlgebra::DIAG);
+    A_DIAG.print();
 
 ![](../images/tasksheet7_task3.JPG)
 
@@ -99,12 +137,42 @@ The following code block generated the output seen in the image below. This code
 
 **Task 4**
 
+The following code block generated the output seen in the image below. Since all the pivots are non-zero only along the diagonal indices, the each solution in x only requires a single division. The solveDIAG function is basically a stripped-down version of the back substitution function. 
+
+    // Task 4
+    std::cout << "****************************************************" << std::endl;
+    std::cout << "TASK 4" << std::endl;
+    std::cout << "****************************************************" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "A" << std::endl;
+    A_DIAG.print();
+    std::cout << std::endl;
+    std::cout << "b" << std::endl;
+    b.print();
+    LinearAlgebra::Matrix x2 = A_DIAG.solveDIAG(b);
+    std::cout << "x" << std::endl;
+    x2.print();
+
+    LinearAlgebra::verifySolution(A_DIAG, x2, b);
+
 ![](../images/tasksheet7_task4.JPG)
 
 <hr>
 
 **Task 5**
 
+The following code block generated the output seen in the image below. The following lines of code place the matrix A_ALL into row echelon form by berforming subsequent row operations such that the resulting matrix is in upper triangular form.
+
+    // Task 5
+    std::cout << "****************************************************" << std::endl;
+    std::cout << "TASK 5" << std::endl;
+    std::cout << "****************************************************" << std::endl;
+    std::cout << std::endl;
+
+    A_ALL.reduceRowEchelon();
+    A_ALL.print();
+    
 ![](../images/tasksheet7_task5.JPG)
 
 <hr>
