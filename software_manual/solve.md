@@ -17,11 +17,11 @@ better
 
     g++ linsolver.cpp -o linsolver.exe
 
-**Description/Purpose:** This routine will solve a system of linear equations where the system matrix is not a lower triangular matrix. 
+**Description/Purpose:** This routine will solve a system of linear equations where the system matrix is not a lower triangular matrix. The system matrix must also be M x M (square).
 
-**Input:** A function, pointer to the number of roots, desired error, leftbound bracket, rightbound bracket, step size
+**Input:** A M x 1 matrix where M is the number of rows in A.
 
-**Output:** All the roots of the function within the given bracket
+**Output:** A M x 1 matrix where M is the number of rows in A.
 
 **Usage/Example:** An A and b matrix must be created. Values can easily be assigned to A by creating an array for each equation. 
 
