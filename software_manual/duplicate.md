@@ -17,11 +17,12 @@ better
 
     g++ linsolver.cpp -o linsolver.exe
 
-**Description/Purpose:** This routine creates a copy of the current Matrix
+**Description/Purpose:** This routine creates a copy of the current matrix object.
 
 **Input:** None
 
 **Output:** A M x N matrix where M is the number of rows in A, and N is the number of columns in A.
+
 **Usage/Example:** See below for usage.
 
 <pre><code> 
