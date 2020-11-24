@@ -239,6 +239,57 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::forwardSubstitution(const LinearAlg
     return x;
 }
 
+// Using Doolittle's algorithm for LU Factorization
+// https://www.geeksforgeeks.org/doolittle-algorithm-lu-decomposition/
+void LinearAlgebra::Matrix::decompLUPrivate(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const
+{
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        // Solve for Upper triangular matrix
+        for(size_t col = row; col < NUM_COLS; col++)
+        {
+            double sum = 0.0;
+            for(size_t rowUpper = 0; rowUpper < row; rowUpper++)
+            {
+                sum += L.data[row][rowUpper] * U.data[rowUpper][col];
+            }
+            U.data[row][col] = this->data[row][col] - sum;
+        }
+
+        // Solve for Lower triangular matrix
+        for(size_t col = row; col < NUM_COLS; col++)
+        {
+            if (row == col)
+            {
+                L.data[row][row] = 1.0; // Set diagonal entries to 1
+            }
+            else
+            {
+                double sum = 0.0;
+                for(size_t rowUpper = 0; rowUpper < row; rowUpper++)
+                {
+                    sum += L.data[col][rowUpper] * U.data[rowUpper][row];
+                }
+                L.data[col][row] = (this->data[col][row] - sum) / U.data[row][row];
+            }
+        }
+    }
+}
+
+void LinearAlgebra::Matrix::decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const
+{
+    this->decompLUPrivate(L, U);
+}
+
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b) const
+{
+    Matrix L(NUM_ROWS, NUM_COLS, 0.0);
+    Matrix U(NUM_ROWS, NUM_COLS, 0.0);
+    decompLUPrivate(L, U); // LU Factorization (A = LU) -> LUx = b 
+    Matrix y = L.solveLWR(b); // Ly = b
+    Matrix x = U.solve(y); // Ux = y
+    return x;
+}
 
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) const
@@ -493,7 +544,7 @@ int main()
     LinearAlgebra::Matrix A(numRows, numCols, LinearAlgebra::SQR);
     LinearAlgebra::Matrix B(numRows, numCols, 1.0);
     LinearAlgebra::Matrix D(numRows, numCols, 1.0);
-    LinearAlgebra::Matrix b(numRows, numCols, 1.0);
+    LinearAlgebra::Matrix b(numRows, 1, 1.0);
 
     std::cout << "Testing for creation of different matrix types..." << std::endl;
     LinearAlgebra::Matrix Random(numRows, numCols, LinearAlgebra::SQR);
@@ -548,6 +599,22 @@ int main()
     std::cout << C.data[0][0] << std::endl;
     std::cout << A.data[0][0] << std::endl;
     C.print(0, 30, 0, 30);
+
+    std::cout << "Testing LU Factorization..." << std::endl;
+    size_t num = 5;
+    LinearAlgebra::Matrix Apple(num, num, LinearAlgebra::SQR);
+    LinearAlgebra::Matrix L(num, num, 0.0);
+    LinearAlgebra::Matrix U(num, num, 0.0);
+    Apple.decompLU(L, U);
+    Apple.print();
+    L.print();
+    U.print();
+
+    std::cout << "Testing solving with LU Factorization..." << std::endl;
+    LinearAlgebra::Matrix bnew(num, 1, 1.0);
+    LinearAlgebra::Matrix outputLU = Apple.solveLU(bnew);
+    LinearAlgebra::verifySolution(Apple, outputLU, bnew);
+
 
     return 0;
 }

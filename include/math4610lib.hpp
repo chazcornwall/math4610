@@ -3,7 +3,7 @@
 #include <cmath>
 #include <stdlib.h>  
 #include <time.h>
-// #define TEST_ // Uncomment to run tests in main() functions
+#define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();
@@ -61,6 +61,7 @@ namespace LinearAlgebra
             Matrix reduceRowEchelon(LinearAlgebra::Matrix & b) const;
             Matrix backSubstitution(const LinearAlgebra::Matrix & b) const;
             Matrix forwardSubstitution(const LinearAlgebra::Matrix & b) const;
+            void decompLUPrivate(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
         public:
             double ** data;
             Matrix(const int & numRows, const int & numCols, const double & value, MatrixType type);
@@ -71,6 +72,8 @@ namespace LinearAlgebra
             Matrix solve(LinearAlgebra::Matrix & b) const;
             Matrix solveLWR(LinearAlgebra::Matrix & b) const;
             Matrix solveDIAG(LinearAlgebra::Matrix & b) const;
+            Matrix solveLU(LinearAlgebra::Matrix & b) const;
+            void decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
             Matrix duplicate() const;
             Matrix transpose() const;
             void reduceRowEchelon();
