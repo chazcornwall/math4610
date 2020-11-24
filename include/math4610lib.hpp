@@ -3,7 +3,7 @@
 #include <cmath>
 #include <stdlib.h>  
 #include <time.h>
-#define TEST_ // Uncomment to run tests in main() functions
+// #define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();
