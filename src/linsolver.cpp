@@ -5,6 +5,8 @@ LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, const do
                                                                                                                                 NUM_COLS(static_cast<size_t>(numCols))
 {
     this->data = new double*[numRows];
+    this->swapArray = new size_t[numRows];
+    this->scalesSPP = new double[numRows];
     
     // Allocate space for rows and initialize to zero
     for(size_t row = 0; row < NUM_ROWS; row++)
@@ -57,6 +59,8 @@ LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, LinearAl
                                                                                                           NUM_COLS(static_cast<size_t>(numCols))
 {
     this->data = new double*[numRows];
+    this->swapArray = new size_t[numRows];
+    this->scalesSPP = new double[numRows];
 
     srand(time(NULL)); // Initialize random number generator
     double value;
@@ -114,6 +118,8 @@ LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, const do
                                                                                                 NUM_COLS(static_cast<size_t>(numCols))
 {
     this->data = new double*[numRows];
+    this->swapArray = new size_t[numRows];
+    this->scalesSPP = new double[numRows];
     
     // Allocate space for rows and initialize to zero
     for(size_t row = 0; row < NUM_ROWS; row++)
@@ -152,6 +158,11 @@ size_t LinearAlgebra::Matrix::getNumCols() const
     return this->NUM_COLS;
 }
 
+void LinearAlgebra::Matrix::loadSwapArray(size_t * const swapArray)
+{
+    this->swapArray = swapArray;
+}
+
 /**********************************************************************************************************************
 *SOLVING LINEAR SYSTEM OF EQUATIONS OPERATIONS
 ***********************************************************************************************************************/
@@ -183,6 +194,97 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::reduceRowEchelon(LinearAlgebra::Mat
     return output;
 }
 
+LinearAlgebra::Matrix LinearAlgebra::Matrix::reduceRowEchelonSPP(LinearAlgebra::Matrix & b) const
+{
+    LinearAlgebra::Matrix output = this->duplicate();
+
+    // Create array of scales
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        double maxAbsValue = 0.0;
+        for(size_t col = 0; col < NUM_COLS; col++)
+        {
+            double tempAbsValue = abs(this->data[row][col]);
+            if(tempAbsValue > maxAbsValue)
+            {
+                maxAbsValue = tempAbsValue;
+            }
+        }
+        scalesSPP[row] = maxAbsValue;
+        swapArray[row] = row; // Initialize swap array
+    }
+
+    for(size_t pivotRow = 0; pivotRow < NUM_ROWS; pivotRow++) // Do row reduction NUM_ROWS times
+    {
+        // Find which row has the largest scaled value in the current column
+        double maxScale = 0.0; 
+        size_t rowToSwap = pivotRow;
+        for(size_t row = pivotRow; row < NUM_ROWS; row++)
+        {
+            double tempScale = abs(data[swapArray[row]][pivotRow]) / scalesSPP[swapArray[row]];
+            if(tempScale > maxScale)
+            {
+                maxScale = tempScale;
+                rowToSwap = row;
+            }
+        }
+
+        // Swap rows with swapArray
+        size_t tempRow = swapArray[pivotRow];
+        swapArray[pivotRow] = swapArray[rowToSwap];
+        swapArray[rowToSwap] = tempRow;
+
+        for(size_t currRow = pivotRow + 1; currRow < NUM_ROWS; currRow++)
+        {
+            // Select a factor such that row operation R_curr -> R_curr - factor * R_pivot creates a zero in the [currRow][pivotRow] location
+            if(output.data[swapArray[pivotRow]][pivotRow] == 0)
+            {
+                std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << pivotRow << ", " << pivotRow << ")" << std::endl;
+                return output;
+            }
+            double factor = output.data[swapArray[currRow]][pivotRow] / output.data[swapArray[pivotRow]][pivotRow];
+            for(size_t currCol = pivotRow + 1; currCol < NUM_COLS; currCol++)
+            {
+                output.data[swapArray[currRow]][currCol] = output.data[swapArray[currRow]][currCol] - factor * output.data[swapArray[pivotRow]][currCol];
+            }
+
+            b.data[swapArray[currRow]][0] = b.data[swapArray[currRow]][0] - factor * b.data[swapArray[pivotRow]][0];
+        }
+    }
+    output.loadSwapArray(this->swapArray); // Load the current swapArray into the matrix that has been row reduced.
+    return output;
+}
+
+LinearAlgebra::Matrix LinearAlgebra::Matrix::backSubstitutionSPP(const LinearAlgebra::Matrix & b)
+{
+    Matrix x(static_cast<int>(NUM_ROWS), 1, 0.0); // NUM_ROWS and NUM_COLS should be equal
+    
+    if(this->data[swapArray[NUM_ROWS - 1]][NUM_COLS - 1] == 0)
+    {
+        std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << swapArray[NUM_ROWS - 1] << ", " << swapArray[NUM_ROWS - 1] << ")" << std::endl;
+        return x;
+    }
+    
+    // Do not use swapArray for x. This makes x correspond with the correct rows of the original matrix A.
+    x.data[NUM_ROWS - 1][0] = b.data[swapArray[NUM_ROWS - 1]][0] / this->data[swapArray[NUM_ROWS - 1]][NUM_COLS - 1];
+    for(size_t row = NUM_ROWS - 2; row >= 0 && row < NUM_ROWS - 1; row--) // Start at the second to last row
+    {
+        double sum = 0.0;
+        for(size_t col = row + 1; col < NUM_COLS; col++)
+        {
+            sum += this->data[swapArray[row]][col] * x.data[col][0]; // Calculate sum using results from past iterations
+        }
+        if(this->data[swapArray[row]][row] == 0)
+        {
+            std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << swapArray[row] << ", " << swapArray[row] << ")" << std::endl;
+            return x;
+        }
+        x.data[row][0] = (b.data[swapArray[row]][0] - sum) / this->data[swapArray[row]][row];
+    }
+
+    return x;
+}
+
 LinearAlgebra::Matrix LinearAlgebra::Matrix::backSubstitution(const LinearAlgebra::Matrix & b) const
 {
     Matrix x(static_cast<int>(NUM_ROWS), 1, 0.0); // NUM_ROWS and NUM_COLS should be equal
@@ -211,16 +313,19 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::backSubstitution(const LinearAlgebr
     return x;
 }
 
-LinearAlgebra::Matrix LinearAlgebra::Matrix::forwardSubstitution(const LinearAlgebra::Matrix & b) const
+LinearAlgebra::Matrix LinearAlgebra::Matrix::forwardSubstitution(const LinearAlgebra::Matrix & b, bool diagonalOnes) const
 {
     Matrix x(static_cast<int>(NUM_ROWS), 1, 0.0); // NUM_ROWS and NUM_COLS should be equal
     
-    if(this->data[0][0] == 0)
+    if(diagonalOnes)
     {
-        std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << NUM_ROWS - 1 << ", " << NUM_ROWS - 1 << ")" << std::endl;
-        return x;
+        x.data[0][0] = b.data[0][0] / 1.0; // Values along the diagonal are always 1.0
     }
-    x.data[0][0] = b.data[0][0] / this->data[0][0];
+    else
+    {
+        x.data[0][0] = b.data[0][0] / this->data[0][0];
+    }
+    
     for(size_t row = 1; row < NUM_ROWS; row++) // Start at the second to last row
     {
         double sum = 0.0;
@@ -228,12 +333,16 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::forwardSubstitution(const LinearAlg
         {
             sum += this->data[row][col] * x.data[col][0]; // Calculate sum using results from past iterations
         }
-        if(this->data[row][row] == 0)
+        
+        if(diagonalOnes)
         {
-            std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << row << ", " << row << ")" << std::endl;
-            return x;
+            x.data[row][0] = (b.data[row][0] - sum) / 1.0; // Values along the diagonal are always 1.0
         }
-        x.data[row][0] = (b.data[row][0] - sum) / this->data[row][row];
+        else
+        {
+            x.data[row][0] = (b.data[row][0] - sum) / this->data[row][row];
+        }
+        
     }
 
     return x;
@@ -281,16 +390,45 @@ void LinearAlgebra::Matrix::decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::M
     this->decompLUPrivate(L, U);
 }
 
+void LinearAlgebra::Matrix::decompLU()
+{
+    for(size_t pivotRow = 0; pivotRow < NUM_ROWS; pivotRow++) // Do row reduction NUM_ROWS times
+    {
+        for(size_t currRow = pivotRow + 1; currRow < NUM_ROWS; currRow++)
+        {
+            // Select a factor such that row operation R_curr -> R_curr - factor * R_pivot creates a zero in the [currRow][pivotRow] location
+            if(this->data[pivotRow][pivotRow] == 0)
+            {
+                std::cout << "ERROR: Column vectors are not linearly independent! Offending pivot location: (" << pivotRow << ", " << pivotRow << ")" << std::endl;
+                return;
+            }
+            double factor = this->data[currRow][pivotRow] / this->data[pivotRow][pivotRow];
+            for(size_t currCol = pivotRow + 1; currCol < NUM_COLS; currCol++)
+            {
+                this->data[currRow][currCol] = this->data[currRow][currCol] - factor * this->data[pivotRow][currCol]; // Create Upper Triangular Matrix
+            }
+            this->data[currRow][pivotRow] = factor; // Create Lower Triangular Matrix
+        }
+    }
+}
+
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b) const
 {
     Matrix L(NUM_ROWS, NUM_COLS, 0.0);
     Matrix U(NUM_ROWS, NUM_COLS, 0.0);
     decompLUPrivate(L, U); // LU Factorization (A = LU) -> LUx = b 
-    Matrix y = L.solveLWR(b); // Ly = b
-    Matrix x = U.solve(y); // Ux = y
+    Matrix y = L.forwardSubstitution(b, true); // Ly = b
+    Matrix x = U.backSubstitution(y); // Ux = y
     return x;
 }
 
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b)
+{
+    this->decompLU(); // LU Factorization (A = LU) -> LUx = b 
+    Matrix y = this->forwardSubstitution(b, true); // Ly = b
+    Matrix x = this->backSubstitution(y); // Ux = y
+    return x;
+}
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) const
 {
@@ -301,12 +439,21 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) co
     return x;
 }
 
-LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLWR(LinearAlgebra::Matrix & b) const
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveSPP(LinearAlgebra::Matrix & b) const
+{
+    // In the equation Ax = b, neither A nor b or changed in this function. 
+    Matrix bDuplicate = b.duplicate();
+    Matrix reduced = reduceRowEchelonSPP(bDuplicate); 
+    Matrix x = reduced.backSubstitutionSPP(bDuplicate);
+    return x;
+}
+
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLWR(LinearAlgebra::Matrix & b, bool diagonalOnes) const
 {
     // In the equation Ax = b, neither A nor b or changed in this function. 
     Matrix bDuplicate = b.duplicate(); 
     Matrix copy = this->duplicate();
-    Matrix x = copy.forwardSubstitution(bDuplicate);
+    Matrix x = copy.forwardSubstitution(bDuplicate, diagonalOnes);
     return x;
 }
 
@@ -554,7 +701,7 @@ int main()
     LinearAlgebra::Matrix Random2(numRows, numCols, LinearAlgebra::LWR);
     Random2.print();
 
-    LinearAlgebra::Matrix xdf = Random2.solveLWR(b);
+    LinearAlgebra::Matrix xdf = Random2.solveLWR(b, false);
     LinearAlgebra::verifySolution(Random2, xdf, b);
 
     LinearAlgebra::Matrix Random3(numRows, numCols, LinearAlgebra::UPPR);
@@ -612,9 +759,16 @@ int main()
 
     std::cout << "Testing solving with LU Factorization..." << std::endl;
     LinearAlgebra::Matrix bnew(num, 1, 1.0);
+    LinearAlgebra::Matrix Apple2 = Apple.duplicate();
     LinearAlgebra::Matrix outputLU = Apple.solveLU(bnew);
-    LinearAlgebra::verifySolution(Apple, outputLU, bnew);
+    LinearAlgebra::verifySolution(Apple2, outputLU, bnew);
 
+    num = 20;
+    std::cout << "Testing solving with scaled partial pivoting..." << std::endl;
+    LinearAlgebra::Matrix Orange(num, num, LinearAlgebra::SQR);
+    LinearAlgebra::Matrix btest(num, 1, 1.0);
+    LinearAlgebra::Matrix banana = Orange.solveSPP(btest);
+    LinearAlgebra::verifySolution(Orange, banana, btest);
 
     return 0;
 }

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <stdlib.h>  
 #include <time.h>
-// #define TEST_ // Uncomment to run tests in main() functions
+#define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();
@@ -57,10 +57,13 @@ namespace LinearAlgebra
         private:
             const size_t NUM_ROWS;
             const size_t NUM_COLS;
-            Matrix reduceRowEchelonPrivate() const;
+            size_t * swapArray;
+            double * scalesSPP;
             Matrix reduceRowEchelon(LinearAlgebra::Matrix & b) const;
+            Matrix reduceRowEchelonSPP(LinearAlgebra::Matrix & b) const;
+            Matrix backSubstitutionSPP(const LinearAlgebra::Matrix & b);
             Matrix backSubstitution(const LinearAlgebra::Matrix & b) const;
-            Matrix forwardSubstitution(const LinearAlgebra::Matrix & b) const;
+            Matrix forwardSubstitution(const LinearAlgebra::Matrix & b, bool diagonalOnes) const;
             void decompLUPrivate(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
         public:
             double ** data;
@@ -69,11 +72,15 @@ namespace LinearAlgebra
             Matrix(const int & numRows, const int & numCols, const double & value);
             size_t getNumRows() const;
             size_t getNumCols() const;
+            void loadSwapArray(size_t * const swapArray);
             Matrix solve(LinearAlgebra::Matrix & b) const;
-            Matrix solveLWR(LinearAlgebra::Matrix & b) const;
+            Matrix solveSPP(LinearAlgebra::Matrix & b) const;
+            Matrix solveLWR(LinearAlgebra::Matrix & b, bool diagonalOnes) const;
             Matrix solveDIAG(LinearAlgebra::Matrix & b) const;
             Matrix solveLU(LinearAlgebra::Matrix & b) const;
+            Matrix solveLU(LinearAlgebra::Matrix & b);
             void decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
+            void decompLU();
             Matrix duplicate() const;
             Matrix transpose() const;
             void reduceRowEchelon();
