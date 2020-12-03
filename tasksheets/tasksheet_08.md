@@ -49,3 +49,5 @@ These two image compare the results of using typical Gaussian elimination with b
 <hr>
 
 **Task 6**
+
+The Hilbert Matrix is known for being difficult to solve in numerical applications. This class of matrix is ill-conditioned, or has a high condition number ([https://en.wikipedia.org/wiki/Hilbert_matrix](https://en.wikipedia.org/wiki/Hilbert_matrix)). The condition number also increases very rapidly as n increases.([http://www.cs.unc.edu/~dm/UNC/COMP205/LECTURES/LINALG/lec10/node1.html](http://www.cs.unc.edu/~dm/UNC/COMP205/LECTURES/LINALG/lec10/node1.html)). The Hilbert Matrix is often used a test matrix due to its poor conditioning. However, there are arguments against using the Hilbert Matrix as test matrix. Not only is the Hilbert Matrix poorly conditioned, it is special in a lot of other ways, which make it a poor choice for a test in a general linear solver ((https://nhigham.com/2020/06/30/what-is-the-hilbert-matrix/)[https://nhigham.com/2020/06/30/what-is-the-hilbert-matrix/]).
