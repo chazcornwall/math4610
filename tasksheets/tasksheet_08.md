@@ -3,7 +3,7 @@
 
 A test program was created to executed all of the tasks described in tasksheet 8. This test program can be found in the test directory [here](../test/task8/task8.cpp). Each task enumerated below will contain an image of a section of the test program's output. All the source code used to implement the Linear Algebra operations are found [here](../src/linsolver.cpp).
 
-See [here](../softwaremanual) for documentation of important methods in the `LinearAlgebra::Matrix` class that were used in this tasksheet.
+See [here](../software_manual/README.md) for documentation of important methods in the `LinearAlgebra::Matrix` class that were used in this tasksheet.
 
 <hr>
 
