@@ -33,7 +33,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix solveDIAG(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveDIAG.md)
 * [Matrix solveLU(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveLU.md)
 * [Matrix solveLUInPlace(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveLUInPlace.md)
-* [Matrix solveSPP(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solvePP.md)
+* [Matrix solveSPP(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveSPP.md)
 * [Matrix duplicate() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/duplicate.md)
 * [Matrix transpose() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/transpose.md)
 * [void reduceRowEchelon()](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelon.md)
