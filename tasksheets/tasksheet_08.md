@@ -7,17 +7,24 @@ A test program was created to executed all of the tasks described in tasksheet 8
 
 **Task 1**
 
+The image below shows the output of using Gaussian Elimination to solve a diagonally dominant square matrix.
+
 ![](../images/tasksheet8_task1.JPG)
 
 <hr>
 
 **Task 2**
 
+The image belows shows a system matrix A that was solved using LU factorization. I have two different functions for solving with LU factorization. `solveLU()` can be used on const objects and does not alter the original system matrix A. `solveLUInPlace` implements the LU factorization within the same memory space as A, so the system matrix A is altered. 
+
 ![](../images/tasksheet8_task2.JPG)
 
 <hr>
 
 **Task 3**
+
+For Hilbert matrix of size n=4 to n=8, the original and the solved x matrix were exactly the same (all ones exactly). When n > 9, the numerical errors become noticeable. Most 
+of the errors are smaller than 10^-4. This may appear to not be a large error, but when considering matrices with thousands or millions of entries, this small numerical error could quickly increase to the point where the output is garbage.
 
 ![](../images/tasksheet8_task3.JPG)
 
@@ -30,6 +37,8 @@ A test program was created to executed all of the tasks described in tasksheet 8
 <hr> 
 
 **Task 5**
+
+This image shows that the original and solved x matrixes closer together than those in Task 3. Scaled partial pivotting was used in this example. Some of the errors are decreased by a few thousandths or ten thousandths while other errors are decreased by an order of magnitude. 
 
 ![](../images/tasksheet8_task5.JPG)
 
