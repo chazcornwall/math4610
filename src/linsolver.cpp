@@ -105,6 +105,9 @@ LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, LinearAl
                         this->data[row][col] = 0.0;
                     }
                     break;
+                case HILBERT:
+                    this->data[row][col] = 1.0 / static_cast<double>(row + col + 1);
+                    break;
                 default:
                     this->data[row][col] = value;
                     break;
@@ -414,6 +417,12 @@ void LinearAlgebra::Matrix::decompLU()
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b) const
 {
+    // Check dimensions of b
+    if(b.NUM_ROWS != this->NUM_ROWS || b.NUM_COLS > 1)
+    {
+        std::cout << "ERROR: b is an invalid size!" << std::endl;
+    }
+
     Matrix L(NUM_ROWS, NUM_COLS, 0.0);
     Matrix U(NUM_ROWS, NUM_COLS, 0.0);
     decompLUPrivate(L, U); // LU Factorization (A = LU) -> LUx = b 
@@ -422,8 +431,14 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b) 
     return x;
 }
 
-LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b)
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLUInPlace(LinearAlgebra::Matrix & b)
 {
+    // Check dimensions of b
+    if(b.NUM_ROWS != this->NUM_ROWS || b.NUM_COLS > 1)
+    {
+        std::cout << "ERROR: b is an invalid size!" << std::endl;
+    }
+
     this->decompLU(); // LU Factorization (A = LU) -> LUx = b 
     Matrix y = this->forwardSubstitution(b, true); // Ly = b
     Matrix x = this->backSubstitution(y); // Ux = y
@@ -432,7 +447,13 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b)
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) const
 {
-    // In the equation Ax = b, neither A nor b or changed in this function. 
+    // Check dimensions of b
+    if(b.NUM_ROWS != this->NUM_ROWS || b.NUM_COLS > 1)
+    {
+        std::cout << "ERROR: b is an invalid size!" << std::endl;
+    }
+
+    // In the equation Ax = b, neither A nor b is changed in this function. 
     Matrix bDuplicate = b.duplicate();
     Matrix reduced = reduceRowEchelon(bDuplicate); 
     Matrix x = reduced.backSubstitution(bDuplicate);
@@ -441,7 +462,13 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) co
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solveSPP(LinearAlgebra::Matrix & b) const
 {
-    // In the equation Ax = b, neither A nor b or changed in this function. 
+    // Check dimensions of b
+    if(b.NUM_ROWS != this->NUM_ROWS || b.NUM_COLS > 1)
+    {
+        std::cout << "ERROR: b is an invalid size!" << std::endl;
+    }
+
+    // In the equation Ax = b, neither A nor b is changed in this function. 
     Matrix bDuplicate = b.duplicate();
     Matrix reduced = reduceRowEchelonSPP(bDuplicate); 
     Matrix x = reduced.backSubstitutionSPP(bDuplicate);
@@ -450,7 +477,13 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveSPP(LinearAlgebra::Matrix & b)
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLWR(LinearAlgebra::Matrix & b, bool diagonalOnes) const
 {
-    // In the equation Ax = b, neither A nor b or changed in this function. 
+    // Check dimensions of b
+    if(b.NUM_ROWS != this->NUM_ROWS || b.NUM_COLS > 1)
+    {
+        std::cout << "ERROR: b is an invalid size!" << std::endl;
+    }
+
+    // In the equation Ax = b, neither A nor b is changed in this function.
     Matrix bDuplicate = b.duplicate(); 
     Matrix copy = this->duplicate();
     Matrix x = copy.forwardSubstitution(bDuplicate, diagonalOnes);
@@ -646,6 +679,33 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::operator*(const double & operand) c
     return output;
 }
 
+LinearAlgebra::Matrix LinearAlgebra::Matrix::operator*(const LinearAlgebra::Matrix & operand) const
+{
+    if(this->NUM_COLS != operand.NUM_ROWS)
+    {
+        std::cout << "ERROR: Invalid matrix sizes!" << std::endl;
+    }
+    
+    size_t numRow = this->NUM_ROWS;
+    size_t numCol = operand.NUM_COLS;
+    LinearAlgebra::Matrix output(numRow, numCol, 0.0);
+
+    for(size_t row = 0; row < numRow; row++)
+    {
+        for(size_t col = 0; col < numCol; col++)
+        {
+            double sum = 0.0;
+            for(size_t operandRow = 0; operandRow < this->NUM_ROWS; operandRow++)
+            {
+                sum += this->data[row][operandRow] * operand.data[operandRow][col];
+            }
+            output.data[row][col] = sum;
+        }
+    }
+
+    return output;
+}
+
 LinearAlgebra::Matrix LinearAlgebra::Matrix::operator-(const LinearAlgebra::Matrix & operand) const
 {
     size_t numRow = operand.getNumRows();
@@ -760,7 +820,7 @@ int main()
     std::cout << "Testing solving with LU Factorization..." << std::endl;
     LinearAlgebra::Matrix bnew(num, 1, 1.0);
     LinearAlgebra::Matrix Apple2 = Apple.duplicate();
-    LinearAlgebra::Matrix outputLU = Apple.solveLU(bnew);
+    LinearAlgebra::Matrix outputLU = Apple.solveLUInPlace(bnew);
     LinearAlgebra::verifySolution(Apple2, outputLU, bnew);
 
     num = 20;
@@ -769,6 +829,12 @@ int main()
     LinearAlgebra::Matrix btest(num, 1, 1.0);
     LinearAlgebra::Matrix banana = Orange.solveSPP(btest);
     LinearAlgebra::verifySolution(Orange, banana, btest);
+
+    std::cout << "Testing matrix multiplication..." << std::endl;
+    LinearAlgebra::Matrix pomegr(3, 3, 2.0);
+    LinearAlgebra::Matrix seed(3, 3, 2.0);
+    LinearAlgebra::Matrix result = pomegr * seed;
+    result.print();
 
     return 0;
 }

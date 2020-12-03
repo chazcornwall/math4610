@@ -3,7 +3,7 @@
 #include <cmath>
 #include <stdlib.h>  
 #include <time.h>
-#define TEST_ // Uncomment to run tests in main() functions
+// #define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();
@@ -49,7 +49,8 @@ namespace LinearAlgebra
         UPPR,
         LWR,
         DIAG,
-        SQR
+        SQR,
+        HILBERT
     };
 
     class Matrix
@@ -78,7 +79,7 @@ namespace LinearAlgebra
             Matrix solveLWR(LinearAlgebra::Matrix & b, bool diagonalOnes) const;
             Matrix solveDIAG(LinearAlgebra::Matrix & b) const;
             Matrix solveLU(LinearAlgebra::Matrix & b) const;
-            Matrix solveLU(LinearAlgebra::Matrix & b);
+            Matrix solveLUInPlace(LinearAlgebra::Matrix & b);
             void decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
             void decompLU();
             Matrix duplicate() const;
@@ -91,6 +92,7 @@ namespace LinearAlgebra
             Matrix operator-(const LinearAlgebra::Matrix & operand) const;
             Matrix operator-=(const LinearAlgebra::Matrix & operand) const;
             Matrix operator*(const double & operand) const;
+            Matrix operator*(const LinearAlgebra::Matrix & operand) const;
     };
 
     bool verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b);
