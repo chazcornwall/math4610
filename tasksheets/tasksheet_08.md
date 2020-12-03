@@ -34,7 +34,7 @@ of the errors are smaller than 10^-4. This may appear to not be a large error, b
 
 **Task 4**
 
-The image below shows an example of using scaled partial pivoting during gaussian elimination. The effects of the method are not noticeable in the example but become evident when comparing the results of Task 3 and Task 5.
+The image below shows an example of using scaled partial pivoting during gaussian elimination. The effects of the method are not noticeable in the example but become evident when comparing the results of Task 3 and Task 5. The method `scaledSPP()` was used.
 
 ![](../images/tasksheet8_task4.JPG)
 
