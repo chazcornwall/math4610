@@ -43,6 +43,7 @@ The image below shows an example of using scaled partial pivoting during gaussia
 These two image compare the results of using typical Gaussian elimination with backsubstituion without and with a pivoting strategy. Scaled partial pivotting was used in the second image. Some of the errors are decreased by a few thousandths or ten thousandths while other errors are decreased by an order of magnitude. 
 
 ![](../images/tasksheet8_task5a.JPG)
+
 ![](../images/tasksheet8_task5.JPG)
 
 <hr>
