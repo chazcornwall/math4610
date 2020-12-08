@@ -513,6 +513,53 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveDIAG(LinearAlgebra::Matrix & b
 *MISCELLANEOUS MATRIX OPERATIONS/TESTS
 ***********************************************************************************************************************/
 
+LinearAlgebra::Matrix LinearAlgebra::createMatrixFromRowVector(const double * const rowVector, const size_t numRows, LinearAlgebra::MatrixType type)
+{
+    if(type == ROW)
+    {
+        LinearAlgebra::Matrix output(1, numRows, 0.0);
+        for(size_t col = 0; col < numRows; col++)
+        {
+            output.data[0][col] = rowVector[col];
+        }
+        return output;
+    }
+    else // Create Column vector
+    {
+        LinearAlgebra::Matrix output(numRows, 1, 0.0);
+        for(size_t row = 0; row < numRows; row++)
+        {
+            output.data[row][0] = rowVector[row];
+        }
+        return output;
+    }
+}
+
+LinearAlgebra::Matrix LinearAlgebra::Matrix::outerProd(const LinearAlgebra::Matrix & y) const
+{
+    LinearAlgebra::Matrix output(this->NUM_ROWS, y.NUM_COLS, 0.0);
+    if(this->NUM_COLS == 1 && y.NUM_ROWS == 1) // If the matrix is also a vector
+    {
+        size_t numRow = this->NUM_ROWS;
+        size_t numCol = y.NUM_COLS;
+
+        for(size_t row = 0; row < numRow; row++)
+        {
+            for(size_t col = 0; col < numCol; col++)
+            {
+                output.data[row][col] = this->data[row][0] * y.data[0][col];
+            }
+        }
+
+    }
+    else
+    {
+       std::cerr << "Cannot take outer product of a matrix!" << std::endl;
+    }
+    return output;
+
+}
+
 LinearAlgebra::Matrix LinearAlgebra::Matrix::transpose() const
 {
     Matrix output(this->NUM_COLS, this->NUM_ROWS, 0.0);
@@ -626,6 +673,184 @@ void LinearAlgebra::Matrix::print() const
 }
 
 /**********************************************************************************************************************
+*VECTOR NORM OPERATIONS
+***********************************************************************************************************************/
+
+double LinearAlgebra::Matrix::vectorl2Norm() const
+{
+    double output = 0.0;
+    if(NUM_ROWS == 1 || NUM_COLS == 1) // If the matrix is also a vector
+    {
+        if(NUM_ROWS == 1)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                output += this->data[0][col] * this->data[0][col];
+            }
+            output = sqrt(output);
+        }
+        else
+        {
+            for(size_t row = 0; row < NUM_ROWS; row++)
+            {
+                output += this->data[row][0] * this->data[row][0];
+            }
+            output = sqrt(output);
+        }
+    }
+    else
+    {
+       std::cerr << "Cannot take vector norm of a matrix!" << std::endl;
+    }
+    return output;
+}
+
+double LinearAlgebra::Matrix::vectorl1Norm() const
+{
+    double output = 0.0;
+    if(NUM_ROWS == 1 || NUM_COLS == 1) // If the matrix is also a vector
+    {
+        if(NUM_ROWS == 1)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                output += abs(this->data[0][col]);
+            }
+        }
+        else
+        {
+            for(size_t row = 0; row < NUM_ROWS; row++)
+            {
+                output += abs(this->data[row][0]);
+            }
+        }
+    }
+    else
+    {
+       std::cerr << "Cannot take vector norm of a matrix!" << std::endl;
+    }
+    return output;
+}
+
+double LinearAlgebra::Matrix::vectorlInfNorm() const
+{
+    double output = 0.0;
+    if(NUM_ROWS == 1 || NUM_COLS == 1) // If the matrix is also a vector
+    {
+        if(NUM_ROWS == 1)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                output = (output < this->data[0][col]) ? this->data[0][col] : output;
+            }
+        }
+        else
+        {
+            for(size_t row = 0; row < NUM_ROWS; row++)
+            {
+                output = (output < this->data[row][0]) ? this->data[row][0] : output;
+            }
+        }
+    }
+    else
+    {
+       std::cerr << "Cannot take vector norm of a matrix!" << std::endl;
+    }
+    return output;
+}
+
+/**********************************************************************************************************************
+*VECTOR ERROR OPERATIONS
+***********************************************************************************************************************/
+
+double LinearAlgebra::Matrix::vectorl2NormError(const LinearAlgebra::Matrix & y) const
+{
+    double output = 0.0;
+    if(NUM_ROWS == 1 || NUM_COLS == 1) // If the matrix is also a vector
+    {
+        if(NUM_ROWS == 1)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                double diff = this->data[0][col] - y.data[0][col];
+                output += diff * diff;
+            }
+            output = sqrt(output);
+        }
+        else
+        {
+            for(size_t row = 0; row < NUM_ROWS; row++)
+            {
+                double diff = this->data[row][0] - y.data[row][0];
+                output += diff * diff;
+            }
+            output = sqrt(output);
+        }
+    }
+    else
+    {
+       std::cerr << "Cannot take vector norm of a matrix!" << std::endl;
+    }
+    return output;
+}
+
+double LinearAlgebra::Matrix::vectorl1NormError(const LinearAlgebra::Matrix & y) const
+{
+    double output = 0.0;
+    if(NUM_ROWS == 1 || NUM_COLS == 1) // If the matrix is also a vector
+    {
+        if(NUM_ROWS == 1)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                output += abs(this->data[0][col] - y.data[0][col]);
+            }
+        }
+        else
+        {
+            for(size_t row = 0; row < NUM_ROWS; row++)
+            {
+                output += abs(this->data[row][0] - y.data[row][0]);
+            }
+        }
+    }
+    else
+    {
+       std::cerr << "Cannot take vector norm of a matrix!" << std::endl;
+    }
+    return output;
+}
+
+double LinearAlgebra::Matrix::vectorlInfNormError(const LinearAlgebra::Matrix & y) const
+{
+    double output = 0.0;
+    if(NUM_ROWS == 1 || NUM_COLS == 1) // If the matrix is also a vector
+    {
+        if(NUM_ROWS == 1)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                double diff = this->data[0][col] - y.data[0][col];
+                output = (output < diff) ? diff : output;
+            }
+        }
+        else
+        {
+            for(size_t row = 0; row < NUM_ROWS; row++)
+            {
+                double diff = this->data[row][0] - y.data[row][0];
+                output = (output < diff) ? diff : output;
+            }
+        }
+    }
+    else
+    {
+       std::cerr << "Cannot take vector norm of a matrix!" << std::endl;
+    }
+    return output;
+}
+
+/**********************************************************************************************************************
 *OPERATOR OVERLOADS
 ***********************************************************************************************************************/
 
@@ -679,6 +904,9 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::operator*(const double & operand) c
     return output;
 }
 
+/**
+ * Performs dot products and matrix multiplication
+ */
 LinearAlgebra::Matrix LinearAlgebra::Matrix::operator*(const LinearAlgebra::Matrix & operand) const
 {
     if(this->NUM_COLS != operand.NUM_ROWS)
@@ -695,7 +923,7 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::operator*(const LinearAlgebra::Matr
         for(size_t col = 0; col < numCol; col++)
         {
             double sum = 0.0;
-            for(size_t operandRow = 0; operandRow < this->NUM_ROWS; operandRow++)
+            for(size_t operandRow = 0; operandRow < this->NUM_COLS; operandRow++)
             {
                 sum += this->data[row][operandRow] * operand.data[operandRow][col];
             }
@@ -704,6 +932,15 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::operator*(const LinearAlgebra::Matr
     }
 
     return output;
+}
+
+double * LinearAlgebra::Matrix::operator[](const size_t row) const
+{
+    if(row > NUM_ROWS - 1)
+    {
+        std::cerr << "Invalid data access!" << std::endl;
+    }
+    return this->data[row];
 }
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::operator-(const LinearAlgebra::Matrix & operand) const
@@ -835,6 +1072,27 @@ int main()
     LinearAlgebra::Matrix seed(3, 3, 2.0);
     LinearAlgebra::Matrix result = pomegr * seed;
     result.print();
+
+    std::cout << "Testing create Matrix from row vector..." << std::endl;
+    double test[4] = {1, 3, 5, 6};
+    LinearAlgebra::Matrix row = LinearAlgebra::createMatrixFromRowVector(test, 4, LinearAlgebra::ROW);
+    LinearAlgebra::Matrix col = LinearAlgebra::createMatrixFromRowVector(test, 4, LinearAlgebra::COL);
+
+    LinearAlgebra::Matrix dot = row * col;
+    dot.print();
+
+    std::cout << "Testing vector norms and errors..." << std::endl;
+    LinearAlgebra::Matrix row1 = row.duplicate();
+    row1[0][0] = 55.0;
+    std::cout << "Error: " << row1.vectorl2NormError(row) << std::endl;
+    std::cout << "Error: " << row1.vectorl1NormError(row) << std::endl;
+    std::cout << "Error: " << row1.vectorlInfNormError(row) << std::endl;
+
+    std::cout << "Testing outer product..." << std::endl;
+    LinearAlgebra::Matrix outer = col.outerProd(row);
+    outer.print();
+    std::cout << "Test linear independence errors..." << std::endl;
+    LinearAlgebra::Matrix asdf = outer.solve(col);
 
     return 0;
 }

@@ -3,7 +3,8 @@
 #include <cmath>
 #include <stdlib.h>  
 #include <time.h>
-// #define TEST_ // Uncomment to run tests in main() functions
+#include <memory>
+#define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();
@@ -50,7 +51,9 @@ namespace LinearAlgebra
         LWR,
         DIAG,
         SQR,
-        HILBERT
+        HILBERT,
+        ROW,
+        COL
     };
 
     class Matrix
@@ -85,6 +88,12 @@ namespace LinearAlgebra
             Matrix duplicate() const;
             Matrix transpose() const;
             void reduceRowEchelon();
+            double vectorl2Norm() const;
+            double vectorl1Norm() const;
+            double vectorlInfNorm() const;
+            double vectorl2NormError(const LinearAlgebra::Matrix & y) const;
+            double vectorl1NormError(const LinearAlgebra::Matrix & y) const;
+            double vectorlInfNormError(const LinearAlgebra::Matrix & y) const;
             void print(int minRow, int maxRow, int minCol, int maxCol) const;
             void print() const;
             Matrix operator+(const LinearAlgebra::Matrix & operand) const;
@@ -93,9 +102,12 @@ namespace LinearAlgebra
             Matrix operator-=(const LinearAlgebra::Matrix & operand) const;
             Matrix operator*(const double & operand) const;
             Matrix operator*(const LinearAlgebra::Matrix & operand) const;
+            double * operator[](const size_t row) const;
+            Matrix outerProd(const LinearAlgebra::Matrix & y) const;
     };
 
     bool verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b);
+    Matrix createMatrixFromRowVector(const double * const rowVector, const size_t numRows, LinearAlgebra::MatrixType type);
 
 }
 #endif
