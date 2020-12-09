@@ -108,6 +108,93 @@ LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, LinearAl
                 case HILBERT:
                     this->data[row][col] = 1.0 / static_cast<double>(row + col + 1);
                     break;
+                case SYM:
+                    if(col > row)
+                    {
+                        this->data[row][col] = value;
+                        this->data[col][row] = value;
+                    }
+                    if(col == row)
+                    {
+                        this->data[row][col] = value;
+                    }
+                    break;
+                default:
+                    this->data[row][col] = value;
+                    break;
+            }
+            
+        }
+    }
+}
+
+LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, LinearAlgebra::MatrixType type, const uint32_t & maxValue) : NUM_ROWS(static_cast<size_t>(numRows)),
+                                                                                                                                     NUM_COLS(static_cast<size_t>(numCols))
+{
+    this->data = new double*[numRows];
+    this->swapArray = new size_t[numRows];
+    this->scalesSPP = new double[numRows];
+
+    srand(time(NULL)); // Initialize random number generator
+    double value;
+    
+    // Allocate space for rows and initialize to zero
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        this->data[row] = new double[numCols];
+        for(size_t col = 0; col < NUM_COLS; col++)
+        {
+            int32_t randomNum = rand() % maxValue + 1;
+            value = static_cast<double>(randomNum);
+            switch(type)
+            {
+                case UPPR:
+                    if(col >= row)
+                    {
+                        this->data[row][col] = value;
+                    }
+                    else
+                    {
+                        this->data[row][col] = 0.0;
+                    }
+                    break;
+               case LWR:
+                    if(col <= row)
+                    {
+                        this->data[row][col] = value;
+                    }
+                    else
+                    {
+                        this->data[row][col] = 0.0;
+                    }
+                    break;
+                case DIAG:
+                    if(col == row)
+                    {
+                        this->data[row][col] = value;
+                    }
+                    else
+                    {
+                        this->data[row][col] = 0.0;
+                    }
+                    break;
+                case HILBERT:
+                    this->data[row][col] = 1.0 / static_cast<double>(row + col + 1);
+                    break;
+                case SYM:
+                    if(col > row)
+                    {
+                        this->data[row][col] = value;
+                    }
+                    else if(col < row)
+                    {
+                        this->data[row][col] = this->data[col][row];
+                    }
+                    else if(col == row)
+                    {
+                        this->data[row][col] = value;
+                    }
+                    break;
                 default:
                     this->data[row][col] = value;
                     break;
@@ -134,6 +221,14 @@ LinearAlgebra::Matrix::Matrix(const int & numRows, const int & numCols, const do
         }
     }
 }
+
+LinearAlgebra::Matrix::~Matrix()
+{
+    delete data;
+    delete swapArray;
+    delete scalesSPP;
+}
+
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::duplicate() const
 {
@@ -167,7 +262,7 @@ void LinearAlgebra::Matrix::loadSwapArray(size_t * const swapArray)
 }
 
 /**********************************************************************************************************************
-*SOLVING LINEAR SYSTEM OF EQUATIONS OPERATIONS
+*OPERATIONS USED IN SOLVING LINEAR SYSTEM OF EQUATIONS 
 ***********************************************************************************************************************/
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::reduceRowEchelon(LinearAlgebra::Matrix & b) const
@@ -415,6 +510,10 @@ void LinearAlgebra::Matrix::decompLU()
     }
 }
 
+/**********************************************************************************************************************
+*METHODS FOR SOLVING SYSTEMS OF LINEAR EQUATIONS
+***********************************************************************************************************************/
+
 LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b) const
 {
     // Check dimensions of b
@@ -509,30 +608,94 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveDIAG(LinearAlgebra::Matrix & b
     return x;
 }
 
+/**
+ * Solves linear systems of equations through Jacobi Iteration
+ * Convergence Criteria: The system matrix A must by diagonally dominant
+ */
+LinearAlgebra::Matrix LinearAlgebra::Matrix::solveJacobi(const LinearAlgebra::Matrix & b, const double & tolerance, const size_t & maxIterations) const
+{
+    Matrix xOld(this->NUM_ROWS, 1, 0.0); // Initial guess;
+    Matrix aLU = this->duplicate();
+    Matrix aDiag(this->NUM_ROWS, this->NUM_COLS, 0.0);
+
+    // Create inverse diagonal matrix
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        for(size_t col = 0; col < NUM_COLS; col++)
+        {
+            if(row == col)
+            {
+                aDiag[row][col] = 1 / this->data[row][col];
+            }
+        }
+    }
+
+    double error = 10.0 * tolerance;
+    double pastError;
+    size_t it = 0;
+
+    // Execute Jacobi Iteration using residuals
+    while(error > tolerance && it < maxIterations)
+    {
+        Matrix residual = b - (*this * xOld);
+        Matrix xNew = xOld + (aDiag * residual);
+
+        pastError = error;
+        error = xNew.vectorl2NormError(xOld);
+
+        if(error > pastError)
+        {
+            std::cout << "WARNING: Jacobi iteration not converging!" << std::endl;
+        }
+
+        xOld.update(xNew);
+        it++;
+    }
+    
+    if(it == maxIterations && tolerance > error)
+    {
+        std::cout << "ERROR: Tolerance " << tolerance << "not met with " << maxIterations << " iterations!" << std::endl;
+    }
+
+    return xOld;
+}
+
 /**********************************************************************************************************************
 *MISCELLANEOUS MATRIX OPERATIONS/TESTS
 ***********************************************************************************************************************/
 
-LinearAlgebra::Matrix LinearAlgebra::createMatrixFromRowVector(const double * const rowVector, const size_t numRows, LinearAlgebra::MatrixType type)
+void LinearAlgebra::Matrix::makeDiagDominant(const double & increase)
 {
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        double sum = 0.0;
+        for(size_t col = 0; col < NUM_COLS; col++)
+        {
+            sum += this->data[row][col];
+        }
+        this->data[row][row] = sum + increase;
+    }
+}
+
+LinearAlgebra::Matrix LinearAlgebra::createMatrixFromRowVector(const double * const rowVector, size_t numRows, LinearAlgebra::MatrixType type)
+{
+    size_t numCols = 1;
     if(type == ROW)
     {
-        LinearAlgebra::Matrix output(1, numRows, 0.0);
-        for(size_t col = 0; col < numRows; col++)
-        {
-            output.data[0][col] = rowVector[col];
-        }
-        return output;
+        numCols = numRows;
+        numRows = 1;
     }
-    else // Create Column vector
+    
+    LinearAlgebra::Matrix output(numRows, numCols, 0.0);
+    for(size_t row = 0; row < numRows; row++)
     {
-        LinearAlgebra::Matrix output(numRows, 1, 0.0);
-        for(size_t row = 0; row < numRows; row++)
+        for(size_t col = 0; col < numCols; col++)
         {
-            output.data[row][0] = rowVector[row];
+            size_t index = (row > col) ? row : col;
+            output.data[row][col] = rowVector[index];
         }
-        return output;
     }
+    return output;
 }
 
 LinearAlgebra::Matrix LinearAlgebra::Matrix::outerProd(const LinearAlgebra::Matrix & y) const
@@ -597,7 +760,7 @@ void LinearAlgebra::Matrix::reduceRowEchelon()
     }
 }
 
-bool LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b)
+bool LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b, const double & tolerance)
 {
     bool testLinearSolver = true;
     for(size_t row = 0; row < A.getNumRows(); row++)
@@ -608,7 +771,7 @@ bool LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const Linear
             sum += A.data[row][col] * x.data[col][0];
         }
 
-        testLinearSolver = (abs(sum - b.data[row][0]) < 0.001);
+        testLinearSolver = (abs(sum - b.data[row][0]) < tolerance);
         if(!testLinearSolver)
         {
             std::cout << "Row " << row << " is not solved by x." << std::endl;
@@ -622,6 +785,26 @@ bool LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const Linear
     }
 
     return testLinearSolver;
+}
+
+
+void LinearAlgebra::Matrix::update(const LinearAlgebra::Matrix & A)
+{
+    if(A.getNumCols() == this->NUM_COLS && A.getNumRows() == this->NUM_ROWS)
+    {   
+        for(size_t row = 0; row < NUM_ROWS; row++)
+        {
+            for(size_t col = 0; col < NUM_COLS; col++)
+            {
+                this->data[row][col] = A[row][col];
+            }
+        }
+    }
+    else
+    {
+        std::cout << "ERROR: Dimensions do not match!" << std::endl;
+    }
+    
 }
 
 /**********************************************************************************************************************
@@ -976,6 +1159,7 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::operator-=(const LinearAlgebra::Mat
     return *this;
 }
 
+
 /**********************************************************************************************************************
 *TESTING
 ***********************************************************************************************************************/
@@ -999,7 +1183,7 @@ int main()
     Random2.print();
 
     LinearAlgebra::Matrix xdf = Random2.solveLWR(b, false);
-    LinearAlgebra::verifySolution(Random2, xdf, b);
+    LinearAlgebra::verifySolution(Random2, xdf, b, 0.001);
 
     LinearAlgebra::Matrix Random3(numRows, numCols, LinearAlgebra::UPPR);
     Random3.print();
@@ -1032,7 +1216,7 @@ int main()
     std::cout << "Testing solution for matrix equation..." << std::endl;
     LinearAlgebra::Matrix x = A.solve(b);
 
-    LinearAlgebra::verifySolution(A, x, b);
+    LinearAlgebra::verifySolution(A, x, b, 0.001);
 
     std::cout << "Testing operator overloads..." << std::endl;
     LinearAlgebra::Matrix C = A + B;
@@ -1058,14 +1242,14 @@ int main()
     LinearAlgebra::Matrix bnew(num, 1, 1.0);
     LinearAlgebra::Matrix Apple2 = Apple.duplicate();
     LinearAlgebra::Matrix outputLU = Apple.solveLUInPlace(bnew);
-    LinearAlgebra::verifySolution(Apple2, outputLU, bnew);
+    LinearAlgebra::verifySolution(Apple2, outputLU, bnew, 0.001);
 
     num = 20;
     std::cout << "Testing solving with scaled partial pivoting..." << std::endl;
     LinearAlgebra::Matrix Orange(num, num, LinearAlgebra::SQR);
     LinearAlgebra::Matrix btest(num, 1, 1.0);
     LinearAlgebra::Matrix banana = Orange.solveSPP(btest);
-    LinearAlgebra::verifySolution(Orange, banana, btest);
+    LinearAlgebra::verifySolution(Orange, banana, btest, 0.001);
 
     std::cout << "Testing matrix multiplication..." << std::endl;
     LinearAlgebra::Matrix pomegr(3, 3, 2.0);
@@ -1077,7 +1261,9 @@ int main()
     double test[4] = {1, 3, 5, 6};
     LinearAlgebra::Matrix row = LinearAlgebra::createMatrixFromRowVector(test, 4, LinearAlgebra::ROW);
     LinearAlgebra::Matrix col = LinearAlgebra::createMatrixFromRowVector(test, 4, LinearAlgebra::COL);
-
+    std::cout << "row" << std::endl;
+    row.print();
+    col.print();
     LinearAlgebra::Matrix dot = row * col;
     dot.print();
 
@@ -1093,6 +1279,25 @@ int main()
     outer.print();
     std::cout << "Test linear independence errors..." << std::endl;
     LinearAlgebra::Matrix asdf = outer.solve(col);
+
+    std::cout << "Test Jacobi Iteration..." << std::endl;
+    LinearAlgebra::Matrix Ajacobi(50, 50, LinearAlgebra::SQR, 1);
+    LinearAlgebra::Matrix bjacobi(50, 1, 1.0);
+    Ajacobi.makeDiagDominant(100.0);
+    // Ajacobi.print();
+    // bjacobi.print();
+    LinearAlgebra::Matrix xJacobi = Ajacobi.solveJacobi(bjacobi, 0.001, 300);
+    LinearAlgebra::verifySolution(Ajacobi, xJacobi, bjacobi, 0.01);
+   // xJacobi.print();
+    LinearAlgebra::Matrix xjac = Ajacobi.solve(bjacobi);
+    LinearAlgebra::verifySolution(Ajacobi, xjac, bjacobi, 0.001);
+    // xjac.print();
+
+    std::cout << "Test symmetric matrix..." << std::endl;
+    LinearAlgebra::Matrix Asym(5, 5, LinearAlgebra::SYM, 5);
+    Asym.print();
+    LinearAlgebra::Matrix AsymT = Asym.transpose();
+    AsymT.print();
 
     return 0;
 }

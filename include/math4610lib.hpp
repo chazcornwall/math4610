@@ -52,6 +52,7 @@ namespace LinearAlgebra
         DIAG,
         SQR,
         HILBERT,
+        SYM,
         ROW,
         COL
     };
@@ -73,6 +74,7 @@ namespace LinearAlgebra
             double ** data;
             Matrix(const int & numRows, const int & numCols, const double & value, MatrixType type);
             Matrix(const int & numRows, const int & numCols, MatrixType type);
+            Matrix(const int & numRows, const int & numCols, MatrixType type, const uint32_t & maxValue);
             Matrix(const int & numRows, const int & numCols, const double & value);
             size_t getNumRows() const;
             size_t getNumCols() const;
@@ -83,6 +85,7 @@ namespace LinearAlgebra
             Matrix solveDIAG(LinearAlgebra::Matrix & b) const;
             Matrix solveLU(LinearAlgebra::Matrix & b) const;
             Matrix solveLUInPlace(LinearAlgebra::Matrix & b);
+            Matrix solveJacobi(const LinearAlgebra::Matrix & b, const double & tolerance, const size_t & maxIterations) const;
             void decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
             void decompLU();
             Matrix duplicate() const;
@@ -104,9 +107,12 @@ namespace LinearAlgebra
             Matrix operator*(const LinearAlgebra::Matrix & operand) const;
             double * operator[](const size_t row) const;
             Matrix outerProd(const LinearAlgebra::Matrix & y) const;
+            void update(const LinearAlgebra::Matrix & A);
+            void makeDiagDominant(const double & increase);
+            ~Matrix();
     };
 
-    bool verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b);
+    bool verifySolution(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & x, const LinearAlgebra::Matrix & b, const double & tolerance);
     Matrix createMatrixFromRowVector(const double * const rowVector, const size_t numRows, LinearAlgebra::MatrixType type);
 
 }
