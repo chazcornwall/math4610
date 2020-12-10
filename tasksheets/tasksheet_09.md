@@ -117,6 +117,8 @@ Here is the code showing the Jacobi Iteration:
 
 **Task 5**
 
+The Gaussian elimination method solves the system of equations much better than the Jacobi Iteration. Once the maximum size of the elements in the system matrix are above 100, the Jacobi iteration struggles. The Jacobi iteration method could be a good replacement for Gaussian elimination if the system matrix is properly conditioned, and the Jacobi iteration converges quickly.
+
 ![](../images/tasksheet9_task5.JPG)
 
 <hr>
