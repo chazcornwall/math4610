@@ -641,8 +641,7 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveJacobi(const LinearAlgebra::Ma
         Matrix xNew = xOld + (aDiag * residual);
 
         pastError = error;
-        error = xNew.vectorl2NormError(xOld);
-
+        error = residual.vectorl2Norm();
         if(error > pastError)
         {
             std::cout << "WARNING: Jacobi iteration not converging!" << std::endl;
@@ -652,9 +651,10 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveJacobi(const LinearAlgebra::Ma
         it++;
     }
     
-    if(it == maxIterations && tolerance > error)
+    if(it == maxIterations && tolerance < error)
     {
-        std::cout << "ERROR: Tolerance " << tolerance << "not met with " << maxIterations << " iterations!" << std::endl;
+        std::cout << "ERROR: Residual tolerance " << tolerance << " not met with " << maxIterations << " iterations!" << std::endl;
+        std::cout << "ERROR: Residual l2norm is " << error << std::endl;
     }
 
     return xOld;

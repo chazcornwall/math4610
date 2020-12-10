@@ -232,12 +232,12 @@ int main()
     std::cout << "****************************************************" << std::endl;
     std::cout << std::endl;
 
-    LinearAlgebra::Matrix Ajacobi(100, 100, LinearAlgebra::SYM, 100);
+    LinearAlgebra::Matrix Ajacobi(100, 100, LinearAlgebra::SYM, 10);
     Ajacobi.makeDiagDominant(20.0);
     LinearAlgebra::Matrix xtest(100, 1, 1.0); // Make a test vector of ones;
     LinearAlgebra::Matrix bjacobi = Ajacobi * xtest;
 
-    LinearAlgebra::Matrix xjacobi = Ajacobi.solveJacobi(bjacobi, 0.001, 100);
+    LinearAlgebra::Matrix xjacobi = Ajacobi.solveJacobi(bjacobi, 0.00001, 100);
     LinearAlgebra::Matrix xgauss = Ajacobi.solve(bjacobi);
 
     double errorJacobi = xtest.vectorl2NormError(xjacobi);
