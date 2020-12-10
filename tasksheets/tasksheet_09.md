@@ -43,6 +43,17 @@ Here is the code that produces the Norm and Error results (where the vectors are
 
 **Task 3**
 
+The screenshot below shows the output of the matrix operations. 
+
+Here is the code that executes the operations (where A, B, and x are `LinearAlgebra::Matrix` objects):
+
+    LinearAlgebra::Matrix sumMatrix = A + B;
+    LinearAlgebra::Matrix diffMatrix = A - B;
+    LinearAlgebra::Matrix scaleMatrix = A * 5.0;
+    LinearAlgebra::Matrix transpose = A.transpose();
+    LinearAlgebra::Matrix prodVectMat = A * x;
+    LinearAlgebra::Matrix prod = A * B;
+
 ![](../images/tasksheet9_task3.JPG)
 
 <hr>
