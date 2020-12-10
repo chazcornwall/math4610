@@ -9,6 +9,16 @@ See [here](../software_manual/README.md) for documentation of important methods 
 
 **Task 1**
 
+The `LinearAlgebra::Matrix` class supports matrices of all sizes. Therefore, it can also support vectors. In the test code, the vector operation outputs were double-checked. The output below shows the resulting vector or matrix from the operation.
+
+Here is the code that executes the operations (where the vectors are `LinearAlgebra::Matrix` objects):
+
+    LinearAlgebra::Matrix sum = vector1 + vector2;
+    LinearAlgebra::Matrix diff = vector1 - vector2;
+    LinearAlgebra::Matrix scaled = vector1 * 5.0;
+    LinearAlgebra::Matrix dot = vector1 * vector3;
+    LinearAlgebra::Matrix outer = vector3.outerProd(vector1);
+
 ![](../images/tasksheet9_task1.JPG)
 
 <hr>
