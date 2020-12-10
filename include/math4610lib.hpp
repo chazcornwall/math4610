@@ -4,7 +4,7 @@
 #include <stdlib.h>  
 #include <time.h>
 #include <memory>
-#define TEST_ // Uncomment to run tests in main() functions
+// #define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();

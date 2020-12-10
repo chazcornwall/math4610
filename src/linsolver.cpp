@@ -924,14 +924,14 @@ double LinearAlgebra::Matrix::vectorlInfNorm() const
         {
             for(size_t col = 0; col < NUM_COLS; col++)
             {
-                output = (output < this->data[0][col]) ? this->data[0][col] : output;
+                output = (output < abs(this->data[0][col])) ? abs(this->data[0][col]) : output;
             }
         }
         else
         {
             for(size_t row = 0; row < NUM_ROWS; row++)
             {
-                output = (output < this->data[row][0]) ? this->data[row][0] : output;
+                output = (output < abs(this->data[row][0])) ? abs(this->data[row][0]) : output;
             }
         }
     }
@@ -1014,7 +1014,7 @@ double LinearAlgebra::Matrix::vectorlInfNormError(const LinearAlgebra::Matrix & 
             for(size_t col = 0; col < NUM_COLS; col++)
             {
                 double diff = this->data[0][col] - y.data[0][col];
-                output = (output < diff) ? diff : output;
+                output = (output < abs(diff)) ? abs(diff) : output;
             }
         }
         else
@@ -1022,7 +1022,7 @@ double LinearAlgebra::Matrix::vectorlInfNormError(const LinearAlgebra::Matrix & 
             for(size_t row = 0; row < NUM_ROWS; row++)
             {
                 double diff = this->data[row][0] - y.data[row][0];
-                output = (output < diff) ? diff : output;
+                output = (output < abs(diff)) ? abs(diff) : output;
             }
         }
     }
