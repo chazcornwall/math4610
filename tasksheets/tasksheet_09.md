@@ -60,6 +60,59 @@ Here is the code that executes the operations (where A, B, and x are `LinearAlge
 
 **Task 4**
 
+The Jacobi Iteration method was implemented within the `LinearAlgebra::Matrix` class. This iteration technique DOES NOT work on general matrices. I spent a long time trying to figure out why the iteration was not converging. Then through iternet searches, I realized that the Jacobi Iteration converges only under specific conditions. Once I created a diagonally dominant system matrix, the Jacobi Iteration worked as expected.
+
+Here is the code showing the Jacobi Iteration:
+
+    LinearAlgebra::Matrix LinearAlgebra::Matrix::solveJacobi(const LinearAlgebra::Matrix & b, const double & tolerance, const size_t & maxIterations) const
+    {
+    Matrix xOld(this->NUM_ROWS, 1, 0.0); // Initial guess;
+    Matrix aLU = this->duplicate();
+    Matrix aDiag(this->NUM_ROWS, this->NUM_COLS, 0.0);
+
+    // Create inverse diagonal matrix
+    for(size_t row = 0; row < NUM_ROWS; row++)
+    {
+        for(size_t col = 0; col < NUM_COLS; col++)
+        {
+            if(row == col)
+            {
+                aDiag[row][col] = 1 / this->data[row][col];
+            }
+        }
+    }
+
+    double error = 10.0 * tolerance;
+    double pastError;
+    size_t it = 0;
+
+    // Execute Jacobi Iteration using residuals
+    while(error > tolerance && it < maxIterations)
+    {
+        Matrix residual = b - (*this * xOld);
+        Matrix xNew = xOld + (aDiag * residual);
+
+        pastError = error;
+        error = xNew.vectorl2NormError(xOld);
+
+        if(error > pastError)
+        {
+            std::cout << "WARNING: Jacobi iteration not converging!" << std::endl;
+        }
+
+        xOld.update(xNew);
+        it++;
+    }
+    
+    if(it == maxIterations && tolerance > error)
+    {
+        std::cout << "ERROR: Tolerance " << tolerance << "not met with " << maxIterations << " iterations!" << std::endl;
+    }
+
+    return xOld;
+    }
+
+
 <hr>
 
 **Task 5**
