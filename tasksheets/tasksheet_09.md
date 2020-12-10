@@ -119,8 +119,24 @@ Here is the code showing the Jacobi Iteration:
 
 The Gaussian elimination method solves the system of equations much better than the Jacobi Iteration. Once the maximum size of the elements in the system matrix are above 100, the Jacobi iteration struggles. The Jacobi iteration method could be a good replacement for Gaussian elimination if the system matrix is properly conditioned, and the Jacobi iteration converges quickly.
 
+Here is the code:
+
+    LinearAlgebra::Matrix Ajacobi(100, 100, LinearAlgebra::SYM, 10);
+    Ajacobi.makeDiagDominant(20.0);
+    LinearAlgebra::Matrix xtest(100, 1, 1.0); // Make a test vector of ones
+    LinearAlgebra::Matrix bjacobi = Ajacobi * xtest;
+
+    LinearAlgebra::Matrix xjacobi = Ajacobi.solveJacobi(bjacobi, 0.001, 100);
+    LinearAlgebra::Matrix xgauss = Ajacobi.solve(bjacobi);
+
+    double errorJacobi = xtest.vectorl2NormError(xjacobi);
+
+    double errorGauss = xtest.vectorl2NormError(xgauss);
+
 ![](../images/tasksheet9_task5.JPG)
 
 <hr>
 
 **Task 6**
+
+The Jacobi iteration method is used for solving matrices that are diagonally dominant ([https://en.wikipedia.org/wiki/Jacobi_method](https://en.wikipedia.org/wiki/Jacobi_method)). The Gauss-Seidel iteration method is very similar to the Jacobi iteration method. Instead of decomposing the system matrix into additive L, D, and U matrices, the matrix is decomposed into additive L and U matrices. ([https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method)). The Guass-Seidel interation method can also converge faster than the Jacobi iteration method. ([https://www.maa.org/press/periodicals/loci/joma/iterative-methods-for-solving-iaxi-ibi-gauss-seidel-method](https://www.maa.org/press/periodicals/loci/joma/iterative-methods-for-solving-iaxi-ibi-gauss-seidel-method)).
