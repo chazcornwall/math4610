@@ -9,13 +9,19 @@ See [here](../software_manual/README.md) for documentation of important methods 
 
 **Task 1**
 
+![](../images/tasksheet9_task1.JPG)
+
 <hr>
 
 **Task 2**
 
+![](../images/tasksheet9_task2.JPG)
+
 <hr>
 
 **Task 3**
+
+![](../images/tasksheet9_task3.JPG)
 
 <hr>
 
@@ -24,6 +30,8 @@ See [here](../software_manual/README.md) for documentation of important methods 
 <hr>
 
 **Task 5**
+
+![](../images/tasksheet9_task5.JPG)
 
 <hr>
 
