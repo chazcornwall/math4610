@@ -661,6 +661,79 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveJacobi(const LinearAlgebra::Ma
 }
 
 /**********************************************************************************************************************
+*Eigenvalues
+***********************************************************************************************************************/
+
+/**
+ * @param return The eigen vector weighted by the largest 
+ */ 
+LinearAlgebra::Matrix LinearAlgebra::Matrix::powerMethod(const double & tolerance, const double & maxIterations)
+{
+    Matrix b(this->NUM_ROWS, 1, LinearAlgebra::SQR, 10); // Create a random initial matrix
+    Matrix v = *this * b;
+
+    double error = 10.0 * tolerance;
+    double pastLambda = 0.0;
+    size_t it = 0;
+    while(error > tolerance && it < maxIterations) // Solve using Raleigh Quotient (v.transpose() * A * v) / (v.transpose() * v)
+    {
+        Matrix vTemp = v * (1.0 / v.vectorl2Norm()); 
+        v.update(vTemp); // Quotient now is v.transpose() * A * v
+        Matrix z = (*this * v);
+        Matrix tempLambda = v.transpose() * z; // If v is an eigenvector of A (*this), the Raleigh Quotient simplifies to the largest eigen value, lambda
+        double currLambda = tempLambda[0][0];
+
+        error = abs(currLambda - pastLambda); // Calculate current error
+
+        pastLambda = currLambda; // Updates for next iteration
+        v.update(z);
+        it++;
+    }
+
+    std::cout << "Largest eigen value: " << pastLambda << std::endl;
+
+    return v;
+}
+
+LinearAlgebra::Matrix LinearAlgebra::Matrix::powerMethodInverse(const double & tolerance, const double & maxIterations)
+{
+    Matrix b(this->NUM_ROWS, 1, LinearAlgebra::SQR, 10); // Create a random initial matrix
+    Matrix v = (*this).solve(b);
+
+    double error = 10.0 * tolerance;
+    double pastLambda = 0.0;
+    size_t it = 0;
+    while(error > tolerance && it < maxIterations) // Solve using Raleigh Quotient (v.transpose() * A^-1 * v) / (v.transpose() * v)
+    {
+        Matrix vTemp = v * (1.0 / v.vectorl2Norm()); 
+        v.update(vTemp); // Quotient now is v.transpose() * A^-1 * v
+        Matrix z = (*this).solve(v);
+        Matrix tempLambda = v.transpose() * z; // If v is an eigenvector of A^-1 (*this), the Raleigh Quotient simplifies to the largest eigen value, lambda
+        double currLambda = tempLambda[0][0];
+
+        error = abs(currLambda - pastLambda); // Calculate current error
+
+        pastLambda = currLambda; // Updates for next iteration
+        v.update(z);
+        it++;
+    }
+    
+    std::cout << "Smallest eigen value: " << 1.0 / pastLambda << std::endl; // v = 1/lambda * vector where lambda is the smallest eigen value of A
+    double norm = v.vectorl2Norm();
+    LinearAlgebra::Matrix vLambda = (v * (1.0 / norm)) * (1.0 / pastLambda); // Set up so v = lambda * vector where lambda is the smallest eigen value of A
+    v.update(vLambda);
+    return v;
+}
+
+double LinearAlgebra::Matrix::getConditionNum(const double & tolerance, const double & maxIterations)
+{
+    Matrix eigenMax = (*this).powerMethod(tolerance, maxIterations);
+    Matrix eigenMin = (*this).powerMethodInverse(tolerance, maxIterations);
+
+    return  eigenMax.vectorl2Norm() / eigenMin.vectorl2Norm() ;
+}
+
+/**********************************************************************************************************************
 *MISCELLANEOUS MATRIX OPERATIONS/TESTS
 ***********************************************************************************************************************/
 
@@ -785,6 +858,38 @@ bool LinearAlgebra::verifySolution(const LinearAlgebra::Matrix & A, const Linear
     }
 
     return testLinearSolver;
+}
+
+/**
+ * Verify that the input vector, lambda * v, satisfies the equation A * lambda = lambda * v
+ */
+bool LinearAlgebra::verifyEigenVector(const LinearAlgebra::Matrix & A, const LinearAlgebra::Matrix & lambdav, const double & tolerance)
+{
+    bool testEigenVector = true;
+
+    // Eigen vector is not normalized
+    double error;
+
+    double lambda = lambdav.vectorl2Norm();
+    LinearAlgebra::Matrix normalized = lambdav * (1.0 / lambda);
+
+    LinearAlgebra::Matrix Av = A * normalized;
+
+    error = Av.vectorl2NormError(lambdav);
+
+    testEigenVector = (error > tolerance) ? false : true;
+
+    if(testEigenVector)
+    {
+        std::cout << "The vector is an eigen vector!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Error not with given tolerance. Error is " << error << std::endl;
+    }
+    
+
+    return testEigenVector;
 }
 
 
@@ -1248,8 +1353,8 @@ int main()
     std::cout << "Testing solving with scaled partial pivoting..." << std::endl;
     LinearAlgebra::Matrix Orange(num, num, LinearAlgebra::SQR);
     LinearAlgebra::Matrix btest(num, 1, 1.0);
-    LinearAlgebra::Matrix banana = Orange.solveSPP(btest);
-    LinearAlgebra::verifySolution(Orange, banana, btest, 0.001);
+    LinearAlgebra::Matrix here = Orange.solveSPP(btest);
+    LinearAlgebra::verifySolution(Orange, here, btest, 0.001);
 
     std::cout << "Testing matrix multiplication..." << std::endl;
     LinearAlgebra::Matrix pomegr(3, 3, 2.0);
@@ -1298,6 +1403,25 @@ int main()
     Asym.print();
     LinearAlgebra::Matrix AsymT = Asym.transpose();
     AsymT.print();
+
+    std::cout << "Test power method for finding eigen values..." << std::endl;
+    LinearAlgebra::Matrix Apower(100, 100, LinearAlgebra::SYM, 100);
+    Apower.makeDiagDominant(5.0);
+    LinearAlgebra::Matrix output = Apower.powerMethod(0.001, 10000);
+    LinearAlgebra::Matrix outputInverse = Apower.powerMethodInverse(0.001, 10000);
+    LinearAlgebra::verifyEigenVector(Apower, output, 0.001);
+    LinearAlgebra::verifyEigenVector(Apower, outputInverse, 0.001);
+
+
+    double lambda = outputInverse.vectorl2Norm();
+    LinearAlgebra::Matrix normalized = outputInverse * (1.0 / lambda);
+
+    LinearAlgebra::Matrix Av = Apower * normalized;
+
+    double error = Av.vectorl2NormError(outputInverse);
+    std::cout << lambda << std::endl;
+    std::cout << error << std::endl;
+    std::cout << "Matrix condition number: " << Apower.getConditionNum(0.001, 10000) << std::endl;
 
     return 0;
 }
