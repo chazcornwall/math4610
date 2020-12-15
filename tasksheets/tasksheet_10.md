@@ -13,15 +13,13 @@ The image below depicts the output of the test program.
 
 **Task 1**
 
-The power method was implemented successfully. This method produces an output that has little error (on the order of 10^-3). This error was determined by using the `LinearAlgebra::verifyEigenVector()` method, which takes a calculated eigen vector as inputer and checks if the equation Av = lambdav is true. 
-
-<img src="https://render.githubusercontent.com/render/math?math=Av = \lambda v">.
+The power method was implemented successfully. This method produces an output that has little error (on the order of 10^-3). This error was determined by using the `LinearAlgebra::verifyEigenVector()` method, which takes a calculated eigen vector as inputer and checks if the equation <img src="https://render.githubusercontent.com/render/math?math=Av = \lambda v"> is true.
 
 <hr>
 
 **Task 2**
 
-The inverse power method was implemented successfully; however, there was a nuance that was difficult to resolve. 
+The inverse power method was implemented successfully; however, there was a nuance that was difficult to resolve. When using the inverse power method, the equation mentioned in Task 2 becomes <img src="https://render.githubusercontent.com/render/math?math=A^{-1}v = frac{1}{\lambda}v">.
 
 <hr>
 
