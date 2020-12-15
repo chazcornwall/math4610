@@ -4,7 +4,7 @@
 #include <stdlib.h>  
 #include <time.h>
 #include <memory>
-#define TEST_ // Uncomment to run tests in main() functions
+// #define TEST_ // Uncomment to run tests in main() functions
 namespace MachineEpsilon 
 {
     void deps();
@@ -88,12 +88,14 @@ namespace LinearAlgebra
             Matrix solveJacobi(const LinearAlgebra::Matrix & b, const double & tolerance, const size_t & maxIterations) const;
             void decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const;
             void decompLU();
-            Matrix powerMethod(const double & tolerance, const double & maxIterations);
-            Matrix powerMethodInverse(const double & tolerance, const double & maxIterations);
-            double getConditionNum(const double & tolerance, const double & maxIterations);
+            double powerMethod(const double & tolerance, const double & maxIterations) const;
+            double powerMethodInverse(const double & tolerance, const double & maxIterations) const;
+            double getConditionNum(const double & tolerance, const double & maxIterations) const;
             Matrix duplicate() const;
             Matrix transpose() const;
             void reduceRowEchelon();
+            double matrixl1Norm() const;
+            double matrixlInfNorm() const;
             double vectorl2Norm() const;
             double vectorl1Norm() const;
             double vectorlInfNorm() const;

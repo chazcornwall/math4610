@@ -661,13 +661,13 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveJacobi(const LinearAlgebra::Ma
 }
 
 /**********************************************************************************************************************
-*Eigenvalues
+*EIGENVALUES
 ***********************************************************************************************************************/
 
 /**
- * @param return The eigen vector weighted by the largest 
+ * @param return The largest eigen value of the matrix
  */ 
-LinearAlgebra::Matrix LinearAlgebra::Matrix::powerMethod(const double & tolerance, const double & maxIterations)
+double LinearAlgebra::Matrix::powerMethod(const double & tolerance, const double & maxIterations) const
 {
     Matrix b(this->NUM_ROWS, 1, LinearAlgebra::SQR, 10); // Create a random initial matrix
     Matrix v = *this * b;
@@ -690,12 +690,13 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::powerMethod(const double & toleranc
         it++;
     }
 
-    std::cout << "Largest eigen value: " << pastLambda << std::endl;
-
-    return v;
+    return pastLambda;
 }
 
-LinearAlgebra::Matrix LinearAlgebra::Matrix::powerMethodInverse(const double & tolerance, const double & maxIterations)
+/**
+ * @param return The smallest eigen value of the matrix
+ */ 
+double LinearAlgebra::Matrix::powerMethodInverse(const double & tolerance, const double & maxIterations) const
 {
     Matrix b(this->NUM_ROWS, 1, LinearAlgebra::SQR, 10); // Create a random initial matrix
     Matrix v = (*this).solve(b);
@@ -717,20 +718,57 @@ LinearAlgebra::Matrix LinearAlgebra::Matrix::powerMethodInverse(const double & t
         v.update(z);
         it++;
     }
-    
-    std::cout << "Smallest eigen value: " << 1.0 / pastLambda << std::endl; // v = 1/lambda * vector where lambda is the smallest eigen value of A
-    double norm = v.vectorl2Norm();
-    LinearAlgebra::Matrix vLambda = (v * (1.0 / norm)) * (1.0 / pastLambda); // Set up so v = lambda * vector where lambda is the smallest eigen value of A
-    v.update(vLambda);
-    return v;
+
+    return 1.0 / pastLambda; // pastLambda is the largest eigen value for A^-1
 }
 
-double LinearAlgebra::Matrix::getConditionNum(const double & tolerance, const double & maxIterations)
+double LinearAlgebra::Matrix::getConditionNum(const double & tolerance, const double & maxIterations) const
 {
-    Matrix eigenMax = (*this).powerMethod(tolerance, maxIterations);
-    Matrix eigenMin = (*this).powerMethodInverse(tolerance, maxIterations);
+    double eigenMax = (*this).powerMethod(tolerance, maxIterations);
+    double eigenMin = (*this).powerMethodInverse(tolerance, maxIterations);
 
-    return  eigenMax.vectorl2Norm() / eigenMin.vectorl2Norm() ;
+    return  abs(eigenMax) * abs(eigenMin);
+}
+
+/**********************************************************************************************************************
+*MATRIX NORMS
+***********************************************************************************************************************/
+double LinearAlgebra::Matrix::matrixl1Norm() const
+{
+    double maxColSum = 0.0;
+    for(size_t col = 0; col < this->NUM_COLS; col++)
+    {
+        double sum = 0.0;
+        for(size_t row = 0; row < this->NUM_ROWS; row++)
+        {
+            sum += abs(this->data[row][col]);
+        }
+
+        if(sum > maxColSum)
+        {
+            maxColSum = sum;
+        }
+    }
+    return maxColSum;
+}
+
+double LinearAlgebra::Matrix::matrixlInfNorm() const
+{
+    double maxRowSum = 0.0;
+    for(size_t row = 0; row < this->NUM_ROWS; row++)
+    {
+        double sum = 0.0;
+        for(size_t col = 0; col < this->NUM_COLS; col++)
+        {
+            sum += abs(this->data[row][col]);
+        }
+
+        if(sum > maxRowSum)
+        {
+            maxRowSum = sum;
+        }
+    }
+    return maxRowSum;
 }
 
 /**********************************************************************************************************************
@@ -1405,23 +1443,16 @@ int main()
     AsymT.print();
 
     std::cout << "Test power method for finding eigen values..." << std::endl;
-    LinearAlgebra::Matrix Apower(100, 100, LinearAlgebra::SYM, 100);
+    LinearAlgebra::Matrix Apower(5, 5, LinearAlgebra::SQR, 10);
     Apower.makeDiagDominant(5.0);
-    LinearAlgebra::Matrix output = Apower.powerMethod(0.001, 10000);
-    LinearAlgebra::Matrix outputInverse = Apower.powerMethodInverse(0.001, 10000);
-    LinearAlgebra::verifyEigenVector(Apower, output, 0.001);
-    LinearAlgebra::verifyEigenVector(Apower, outputInverse, 0.001);
+    double output = Apower.powerMethod(0.001, 10000);
+    double outputInverse = Apower.powerMethodInverse(0.001, 10000);
 
-
-    double lambda = outputInverse.vectorl2Norm();
-    LinearAlgebra::Matrix normalized = outputInverse * (1.0 / lambda);
-
-    LinearAlgebra::Matrix Av = Apower * normalized;
-
-    double error = Av.vectorl2NormError(outputInverse);
-    std::cout << lambda << std::endl;
-    std::cout << error << std::endl;
+    std::cout << "Largest eigen value: " << output << std::endl;
+    std::cout << "Smallest eigen value: " << outputInverse << std::endl;
     std::cout << "Matrix condition number: " << Apower.getConditionNum(0.001, 10000) << std::endl;
+    std::cout << "Matrix l1 norm: " << Apower.matrixl1Norm() << std::endl;
+    std::cout << "Matrix lInf norm: " << Apower.matrixlInfNorm() << std::endl;
 
     return 0;
 }
