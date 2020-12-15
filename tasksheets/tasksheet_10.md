@@ -15,7 +15,7 @@ The image below depicts the output of the test program.
 
 The power method was implemented successfully. This method produces an output that has little error (on the order of 10^-3). This error was determined by using the `LinearAlgebra::verifyEigenVector()` method, which takes a calculated eigen vector as inputer and checks if the equation Av = lambdav is true. 
 
-<img src="https://render.githubusercontent.com/render/math?math=Av = \{lambda}v">.
+<img src="https://render.githubusercontent.com/render/math?math=Av = \lambda v">.
 
 <hr>
 
