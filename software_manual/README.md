@@ -2,7 +2,7 @@
 
 This software manual is for the math4610.a C++ library. The following functions are sorted according to their namespace. All C++ functions documented in this manual can be accessed from the `math4610lib.a` archive by using the following syntax when compiling driver code:
 
-  g++ <name_of_cpp_file> <path>/math4610lib.a -o <name_of_executable>
+    g++ <name_of_cpp_file> <path>/math4610lib.a -o <name_of_executable>
 
 **MachineEpsilon**
 
@@ -38,7 +38,14 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix solveSPP(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveSPP.md)
 * [Matrix duplicate() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/duplicate.md)
 * [Matrix transpose() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/transpose.md)
-* [void reduceRowEchelon()](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelon.md)
+* [Matrix reduceRowEchelon(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelon.md)
+* [Matrix reduceRowEchelonSPP(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelonSPP.md)
+* [double vectorl1Norm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1Norm.md)
+* [double vectorl2Norm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl2Norm.md)
+* [double vectorlInfNorm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1InfNorm.md)
+* [double vectorl1NormError() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1NormError.md)
+* [double vectorl2NormError() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl2NormError.md)
+* [double vectorlInfNormError() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorlInfNormError.md)
 
 *Miscellaneous (other programming languages)*
 
