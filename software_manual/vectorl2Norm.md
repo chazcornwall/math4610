@@ -1,6 +1,6 @@
 # double LinearAlgebra::Matrix::vectorl2Norm() const
 
-**Function Name:**           vectorl1Norm
+**Function Name:**           vectorl2Norm
 
 **Namespace:**               LinearAlgebra
 
