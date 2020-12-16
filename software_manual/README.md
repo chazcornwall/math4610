@@ -42,7 +42,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix reduceRowEchelonSPP(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelonSPP.md)
 * [double vectorl1Norm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1Norm.md)
 * [double vectorl2Norm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl2Norm.md)
-* [double vectorlInfNorm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1InfNorm.md)
+* [double vectorlInfNorm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorlInfNorm.md)
 * [double vectorl1NormError() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1NormError.md)
 * [double vectorl2NormError() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl2NormError.md)
 * [double vectorlInfNormError() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorlInfNormError.md)
