@@ -1,6 +1,6 @@
 # LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) const
 
-**Function Name:**           solve
+**Function Name:**           solveLUInPlace
 
 **Namespace:**               LinearAlgebra
 
@@ -17,7 +17,7 @@ better
 
     g++ linsolver.cpp -o linsolver.exe
 
-**Description/Purpose:** This routine will solve a system of linear equations where the system matrix is not a lower triangular matrix. The system matrix must also be M x M (square).
+**Description/Purpose:** This routine will solve a system of linear equations using LU factorization. This routine solves the equations in place so the system matrix A is altered after execution. The system matrix must also be M x M (square).
 
 **Input:** A M x 1 matrix where M is the number of rows in A.
 
@@ -52,7 +52,7 @@ int main()
     // b.data[1] = output1;
     // b.data[2] = output2;
    
-    LinearAlgebra::Matrix x = A.solve(b);
+    LinearAlgebra::Matrix x = A.solveLUInPlace(b);
     
     return 0;
 }
@@ -65,12 +65,17 @@ If this example was written in a file called "main.cpp", the file could be compi
 **Implementation/Code:** The following is the code for solve()
 
 <pre><code>
- LinearAlgebra::Matrix LinearAlgebra::Matrix::solve(LinearAlgebra::Matrix & b) const
+ LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLUInPlace(LinearAlgebra::Matrix & b)
 {
-    // In the equation Ax = b, neither A nor b or changed in this function. 
-    Matrix bDuplicate = b.duplicate();
-    Matrix reduced = reduceRowEchelon(bDuplicate); 
-    Matrix x = reduced.backSubstitution(bDuplicate);
+    // Check dimensions of b
+    if(b.NUM_ROWS != this->NUM_ROWS || b.NUM_COLS > 1)
+    {
+        std::cout << "ERROR: b is an invalid size!" << std::endl;
+    }
+
+    this->decompLU(); // LU Factorization (A = LU) -> LUx = b 
+    Matrix y = this->forwardSubstitution(b, true); // Ly = b
+    Matrix x = this->backSubstitution(y); // Ux = y
     return x;
 }
 </pre></code>
