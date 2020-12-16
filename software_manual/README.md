@@ -1,6 +1,8 @@
 # Software Manual Table of Contents
 
-This software manual is for the math4610.a C++ library. The following functions are sorted according to their namespace.
+This software manual is for the math4610.a C++ library. The following functions are sorted according to their namespace. All C++ functions documented in this manual can be accessed from the `math4610lib.a` archive by using the following syntax when compiling driver code:
+
+  g++ <name_of_cpp_file> <path>/math4610lib.a -o <name_of_executable>
 
 **MachineEpsilon**
 
