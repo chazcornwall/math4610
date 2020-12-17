@@ -50,6 +50,8 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix Matrix::operator+=(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorPlusEquals.md)
 * [Matrix Matrix::operator-(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMinus.md)
 * [Matrix Matrix::operator-=(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMinusEquals.md)
+* [Matrix Matrix::operator*(const double & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMultScalar.md)
+* [Matrix Matrix::operator*(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMultMatrix.md)
 
 *Miscellaneous (other programming languages)*
 
