@@ -14,8 +14,10 @@ int main()
     std::cout << "****************************************************" << std::endl;
     std::cout << std::endl;
 
-    LinearAlgebra::Matrix A(100, 100, LinearAlgebra::SYM, 100);
+    LinearAlgebra::Matrix A(4, 4, LinearAlgebra::SYM, 10);
+    
     A.makeDiagDominant(5.0);
+    A.print();
     double eigenMax = A.powerMethod(0.001, 1000);
     std::cout << "Largest eigen value of A (100x100, symmetric, diagonally dominant matrix): " << eigenMax << std::endl;
     
