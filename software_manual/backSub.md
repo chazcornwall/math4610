@@ -1,6 +1,6 @@
 # LinearAlgebra::Matrix LinearAlgebra::Matrix::backSubstitution(const LinearAlgebra::Matrix & b) const
 
-**Function Name:**           reduceRowEchelon
+**Function Name:**           backSubstitution
 
 **Namespace:**               LinearAlgebra
 
