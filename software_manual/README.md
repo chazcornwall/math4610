@@ -46,6 +46,10 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [double Matrix::vectorl1NormError(const LinearAlgebra::Matrix & y) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1NormError.md)
 * [double Matrix::vectorl2NormError(const LinearAlgebra::Matrix & y) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl2NormError.md)
 * [double Matrix::vectorlInfNormError(const LinearAlgebra::Matrix & y) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorlInfNormError.md)
+* [Matrix Matrix::operator+(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorPlus.md)
+* [Matrix Matrix::operator+=(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorPlusEquals.md)
+* [Matrix Matrix::operator-(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMinus.md)
+* [Matrix Matrix::operator-=(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMinusEquals.md)
 
 *Miscellaneous (other programming languages)*
 
