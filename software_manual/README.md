@@ -36,6 +36,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix Matrix::solveLU(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveLU.md)
 * [Matrix Matrix::solveLUInPlace(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveLUInPlace.md)
 * [Matrix Matrix::solveSPP(LinearAlgebra::Matrix & b) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveSPP.md)
+* [Matrix Matrix::solveJacobi(LinearAlgebra::Matrix & b, const double & tolerance, const size_t & maxIterations) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/solveJacobi.md)
 * [Matrix Matrix::duplicate() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/duplicate.md)
 * [Matrix Matrix::transpose() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/transpose.md)
 * [Matrix Matrix::reduceRowEchelon(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelon.md)
@@ -52,6 +53,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix Matrix::operator-=(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMinusEquals.md)
 * [Matrix Matrix::operator*(const double & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMultScalar.md)
 * [Matrix Matrix::operator*(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMultMatrix.md)
+* [Matrix Matrix::outerProd(const LinearAlgebra::Matrix & y) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/outerProd.md)
 
 *Miscellaneous (other programming languages)*
 
