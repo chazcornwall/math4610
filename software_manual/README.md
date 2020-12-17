@@ -50,6 +50,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix Matrix::getConditionNum(const double & tolerance, const double & maxIterations)](https://github.com/chazcornwall/math4610/blob/master/software_manual/getConditionNum.md)
 * [void Matrix::decompLU()](https://github.com/chazcornwall/math4610/blob/master/software_manual/decompLUInPlace.md)
 * [void Matrix::decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/decompLU.md)
+* [void private Matrix::decompLU(LinearAlgebra::Matrix & L, LinearAlgebra::Matrix & U) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/decompLUPrivate.md)
 * [double Matrix::vectorl1Norm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl1Norm.md)
 * [double Matrix::vectorl2Norm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorl2Norm.md)
 * [double Matrix::vectorlInfNorm() const](https://github.com/chazcornwall/math4610/blob/master/software_manual/vectorlInfNorm.md)
