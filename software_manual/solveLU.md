@@ -62,7 +62,7 @@ If this example was written in a file called "main.cpp", the file could be compi
 
     g++ main.cpp <path to source>/linsover.cpp -o main.exe
 
-**Implementation/Code:** The following is the code for solve()
+**Implementation/Code:** The following is the code for solveLU()
 
 <pre><code>
  LinearAlgebra::Matrix LinearAlgebra::Matrix::solveLU(LinearAlgebra::Matrix & b) const
