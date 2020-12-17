@@ -1,6 +1,7 @@
 # void LinearAlgebra::Matrix::reduceRowEchelon()
 
 **Function Name:**           reduceRowEchelon
+
 **Namespace:**               LinearAlgebra
 
 **Author:** Chaz Cornwall
