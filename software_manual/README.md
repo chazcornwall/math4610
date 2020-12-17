@@ -42,6 +42,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix Matrix::reduceRowEchelon(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelon.md)
 * [Matrix private Matrix::reduceRowEchelonSPP(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/reduceRowEchelonSPP.md)
 * [Matrix private Matrix::backSubstitution(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/backSub.md)
+* [Matrix private Matrix::backSubstitutionSPP(LinearAlgebra::Matrix & b)](https://github.com/chazcornwall/math4610/blob/master/software_manual/backSubSPP.md)
 * [Matrix private Matrix::forwardSubstitution(LinearAlgebra::Matrix & b, bool diagonalOnes)](https://github.com/chazcornwall/math4610/blob/master/software_manual/forwardSub.md)
 * [Matrix Matrix::powerMethod(const double & tolerance, const double & maxIterations)](https://github.com/chazcornwall/math4610/blob/master/software_manual/powerMethod.md)
 * [Matrix Matrix::powerMethodInverse(const double & tolerance, const double & maxIterations)](https://github.com/chazcornwall/math4610/blob/master/software_manual/powerMethodInverse.md)
@@ -61,6 +62,7 @@ This software manual is for the math4610.a C++ library. The following functions 
 * [Matrix Matrix::operator*(const double & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMultScalar.md)
 * [Matrix Matrix::operator*(const LinearAlgebra::Matrix & operand) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/operatorMultMatrix.md)
 * [Matrix Matrix::outerProd(const LinearAlgebra::Matrix & y) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/outerProd.md)
+* [void Matrix::update(const LinearAlgebra::Matrix & A) const](https://github.com/chazcornwall/math4610/blob/master/software_manual/update.md)
 
 *Miscellaneous (other programming languages)*
 
