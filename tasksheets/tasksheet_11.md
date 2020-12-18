@@ -5,7 +5,7 @@
 
 **Task 1**
 
-My computer has 4 cores and 8 logical processors. This means that there are 4 physical cores and each one can handle 2 threads. Therefore, 8 threads can be in operation simultaneously. [This article explains how the number of physical cores does not always match the number of threads that occur.](https://en.wikipedia.org/wiki/Hyper-threading) [See here] for my openmp program that prints out the thread numbers.
+My computer has 4 cores and 8 logical processors. This means that there are 4 physical cores and each one can handle 2 threads. Therefore, 8 threads can be in operation simultaneously. [This article explains how the number of physical cores does not always match the number of threads that occur.](https://en.wikipedia.org/wiki/Hyper-threading) [See here](../open_mp/openmp.cpp). for my openmp program that prints out the thread numbers.
 
 <hr>
 
